@@ -405,11 +405,12 @@ export default class Gantt {
         }
         if (valid) return;
         if (this.$_wm) return;
-        this.$_wm = this.create_el({
-            classes: '_wm',
-            append_to: this.$container,
-        });
-        this.$_wm.innerHTML = 'Unlicensed';
+        const wm = document.createElement('div');
+        wm.className = '_wm';
+        wm.textContent = 'Unlicensed';
+        wm.style.cssText = 'position:fixed;bottom:20px;right:20px;background:rgba(239,68,68,0.9);color:white;padding:8px 16px;border-radius:4px;font-size:12px;font-weight:600;z-index:9999;';
+        document.body.appendChild(wm);
+        this.$_wm = wm;
     }
 
     setup_layers() {

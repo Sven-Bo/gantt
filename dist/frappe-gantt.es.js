@@ -32,7 +32,7 @@ const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second"
   to_string(n, t = !1) {
     if (!(n instanceof Date))
       throw new TypeError("Invalid argument type");
-    const e = this.get_date_values(n).map((r, a) => (a === 1 && (r = r + 1), a === 6 ? $(r + "", 3, "0") : $(r + "", 2, "0"))), i = `${e[0]}-${e[1]}-${e[2]}`, s = `${e[3]}:${e[4]}:${e[5]}.${e[6]}`;
+    const e = this.get_date_values(n).map((r, a) => (a === 1 && (r = r + 1), a === 6 ? x(r + "", 3, "0") : x(r + "", 2, "0"))), i = `${e[0]}-${e[1]}-${e[2]}`, s = `${e[3]}:${e[4]}:${e[5]}.${e[6]}`;
     return i + (t ? " " + s : "");
   },
   format(n, t = "YYYY-MM-DD HH:mm:ss.SSS", e = "en") {
@@ -40,9 +40,9 @@ const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second"
       month: "long"
     }), s = new Intl.DateTimeFormat(e, {
       month: "short"
-    }), r = i.format(n), a = r.charAt(0).toUpperCase() + r.slice(1), o = this.get_date_values(n).map((g) => $(g, 2, 0)), h = {
+    }), r = i.format(n), a = r.charAt(0).toUpperCase() + r.slice(1), o = this.get_date_values(n).map((g) => x(g, 2, 0)), h = {
       YYYY: o[0],
-      MM: $(+o[1] + 1, 2, 0),
+      MM: x(+o[1] + 1, 2, 0),
       DD: o[2],
       HH: o[3],
       mm: o[4],
@@ -158,7 +158,7 @@ const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second"
     return n.getFullYear() % 4 ? 365 : 366;
   }
 };
-function $(n, t, e) {
+function x(n, t, e) {
   return n = n + "", t = t >> 0, e = String(typeof e < "u" ? e : " "), n.length > t ? String(n) : (t = t - n.length, t > e.length && (e += e.repeat(t / e.length)), e.slice(0, t) + String(n));
 }
 function p(n, t) {
@@ -705,7 +705,7 @@ function A(n) {
   const t = n.getFullYear();
   return t - t % 10 + "";
 }
-function I(n, t, e) {
+function z(n, t, e) {
   let i = d.add(n, 6, "day"), s = i.getMonth() !== n.getMonth() ? "D MMM" : "D", r = !t || n.getMonth() !== t.getMonth() ? "D MMM" : "D";
   return `${d.format(n, r, e)} - ${d.format(i, s, e)}`;
 }
@@ -752,7 +752,7 @@ const b = [
     step: "7d",
     date_format: "YYYY-MM-DD",
     column_width: 140,
-    lower_text: I,
+    lower_text: z,
     upper_text: (n, t, e) => !t || n.getMonth() !== t.getMonth() ? d.format(n, "MMMM", e) : "",
     thick_line: (n) => n.getDate() >= 1 && n.getDate() <= 7,
     upper_text_frequency: 4
@@ -778,7 +778,7 @@ const b = [
     lower_text: "YYYY",
     snap_at: "30d"
   }
-], z = {
+], I = {
   arrow_curve: 5,
   auto_move_label: !1,
   bar_corner_radius: 3,
@@ -873,7 +873,7 @@ class B {
         ), s;
       }
       return i;
-    }), t.view_mode = t.view_modes[0]), this.options = { ...z, ...t };
+    }), t.view_mode = t.view_modes[0]), this.options = { ...I, ...t };
     const e = {
       "grid-height": "container_height",
       "bar-height": "bar_height",
@@ -935,7 +935,7 @@ class B {
         let o = [];
         e.dependencies && (o = e.dependencies.split(",").map((h) => h.trim().replaceAll(" ", "_")).filter((h) => h)), e.dependencies = o;
       }
-      return e.id ? typeof e.id == "string" ? e.id = e.id.replaceAll(" ", "_") : e.id = `${e.id}` : e.id = j(e), e;
+      return e.id ? typeof e.id == "string" ? e.id = e.id.replaceAll(" ", "_") : e.id = `${e.id}` : e.id = N(e), e;
     }).filter((e) => e), this.setup_dependencies();
   }
   setup_dependencies() {
@@ -1022,10 +1022,9 @@ class B {
   _cl() {
     const t = this.options._lk;
     let e = !1;
-    t && typeof t == "string" && t.length >= 20 && t.length <= 25 && (e = t.indexOf("G0") !== -1 && t.indexOf("M4") !== -1 && t.indexOf("H2") !== -1), !e && (this.$_wm || (this.$_wm = this.create_el({
-      classes: "_wm",
-      append_to: this.$container
-    }), this.$_wm.innerHTML = "Unlicensed"));
+    if (t && typeof t == "string" && t.length >= 20 && t.length <= 25 && (e = t.indexOf("G0") !== -1 && t.indexOf("M4") !== -1 && t.indexOf("H2") !== -1), e || this.$_wm) return;
+    const i = document.createElement("div");
+    i.className = "_wm", i.textContent = "Unlicensed", i.style.cssText = "position:fixed;bottom:20px;right:20px;background:rgba(239,68,68,0.9);color:white;padding:8px 16px;border-radius:4px;font-size:12px;font-weight:600;z-index:9999;", document.body.appendChild(i), this.$_wm = i;
   }
   setup_layers() {
     this.layers = {};
@@ -1275,7 +1274,7 @@ class B {
         let i = this.create_el({
           left: t.x,
           top: t.lower_y,
-          classes: "lower-text date_" + x(t.formatted_date),
+          classes: "lower-text date_" + $(t.formatted_date),
           append_to: this.$lower_header
         });
         i.innerText = t.lower_text;
@@ -1307,7 +1306,7 @@ class B {
     let r = this.config.view_mode.upper_text, a = this.config.view_mode.lower_text;
     return r ? typeof r == "string" && (this.config.view_mode.upper_text = (o) => d.format(o, r, this.options.language)) : this.config.view_mode.upper_text = () => "", a ? typeof a == "string" && (this.config.view_mode.lower_text = (o) => d.format(o, a, this.options.language)) : this.config.view_mode.lower_text = () => "", {
       date: t,
-      formatted_date: x(
+      formatted_date: $(
         d.format(
           t,
           this.config.date_format,
@@ -1415,7 +1414,7 @@ class B {
     let t = /* @__PURE__ */ new Date();
     if (t < this.gantt_start || t > this.gantt_end) return null;
     let e = /* @__PURE__ */ new Date(), i = this.$container.querySelector(
-      ".date_" + x(
+      ".date_" + $(
         d.format(
           e,
           this.config.date_format,
@@ -1425,7 +1424,7 @@ class B {
     ), s = 0;
     for (; !i && s < this.config.step; )
       e = d.add(e, -1, this.config.unit), i = this.$container.querySelector(
-        ".date_" + x(
+        ".date_" + $(
           d.format(
             e,
             this.config.date_format,
@@ -1711,10 +1710,10 @@ B.VIEW_MODE = {
   MONTH: b[5],
   YEAR: b[6]
 };
-function j(n) {
+function N(n) {
   return n.name + "_" + Math.random().toString(36).slice(2, 12);
 }
-function x(n) {
+function $(n) {
   return n.replaceAll(" ", "_").replaceAll(":", "_").replaceAll(".", "_");
 }
 export {
