@@ -105,8 +105,7 @@ export default class Bar {
     }
 
     draw_bar() {
-        const isMilestone = this.task._start.getTime() === this.task._end.getTime() || 
-                           (this.width < this.gantt.config.column_width * 0.5);
+        const isMilestone = this.task._start.getTime() === this.task._end.getTime();
         
         if (isMilestone) {
             this.is_milestone = true;

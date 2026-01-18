@@ -338,7 +338,7 @@ class F {
     this.draw_bar(), this.draw_progress_bar(), this.gantt.options.show_expected_progress && (this.prepare_expected_progress_values(), this.draw_expected_progress_bar()), this.draw_label(), this.draw_resize_handles(), this.task.thumbnail && this.draw_thumbnail();
   }
   draw_bar() {
-    if (this.task._start.getTime() === this.task._end.getTime() || this.width < this.gantt.config.column_width * 0.5) {
+    if (this.task._start.getTime() === this.task._end.getTime()) {
       this.is_milestone = !0;
       const e = this.height, i = this.x + e / 2, s = this.y + this.height / 2;
       this.$bar = f("polygon", {
