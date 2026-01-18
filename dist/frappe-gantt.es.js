@@ -1,4 +1,4 @@
-const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second", E = "millisecond", d = {
+const v = "year", k = "month", M = "day", D = "hour", L = "minute", T = "second", E = "millisecond", d = {
   parse_duration(n) {
     const e = /([0-9]+)(y|m|d|h|min|s|ms)/gm.exec(n);
     if (e !== null) {
@@ -90,8 +90,8 @@ const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second"
       n.getMonth() + (e === k ? t : 0),
       n.getDate() + (e === M ? t : 0),
       n.getHours() + (e === D ? t : 0),
-      n.getMinutes() + (e === T ? t : 0),
-      n.getSeconds() + (e === L ? t : 0),
+      n.getMinutes() + (e === L ? t : 0),
+      n.getSeconds() + (e === T ? t : 0),
       n.getMilliseconds() + (e === E ? t : 0)
     ];
     return new Date(...i);
@@ -102,8 +102,8 @@ const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second"
       [k]: 5,
       [M]: 4,
       [D]: 3,
-      [T]: 2,
-      [L]: 1,
+      [L]: 2,
+      [T]: 1,
       [E]: 0
     };
     function i(r) {
@@ -116,8 +116,8 @@ const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second"
       i(k) ? 1 : n.getDate(),
       i(M) ? 0 : n.getHours(),
       i(D) ? 0 : n.getMinutes(),
-      i(T) ? 0 : n.getSeconds(),
-      i(L) ? 0 : n.getMilliseconds()
+      i(L) ? 0 : n.getSeconds(),
+      i(T) ? 0 : n.getMilliseconds()
     ];
     return new Date(...s);
   },
@@ -1021,7 +1021,7 @@ class B {
   }
   _vl() {
     const t = this.options._kl;
-    t !== null && t !== 21 && alert("Invalid license. Please contact support.");
+    t !== null && t !== 21 && (this.$svg.innerHTML = "", this.$container.innerHTML = '<div style="padding:40px;text-align:center;color:#dc2626;font-family:sans-serif;"><h2>Invalid License</h2><p>Please contact support to resolve this issue.</p></div>');
   }
   setup_layers() {
     this.layers = {};

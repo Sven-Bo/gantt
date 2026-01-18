@@ -397,7 +397,8 @@ export default class Gantt {
     _vl() {
         const kl = this.options._kl;
         if (kl !== null && kl !== 21) {
-            alert('Invalid license. Please contact support.');
+            this.$svg.innerHTML = '';
+            this.$container.innerHTML = '<div style="padding:40px;text-align:center;color:#dc2626;font-family:sans-serif;"><h2>Invalid License</h2><p>Please contact support to resolve this issue.</p></div>';
         }
     }
 
