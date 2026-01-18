@@ -391,6 +391,14 @@ export default class Gantt {
         this.map_arrows_on_bars();
         this.set_dimensions();
         this.set_scroll_position(this.options.scroll_to);
+        this._vl();
+    }
+
+    _vl() {
+        const kl = this.options._kl;
+        if (kl !== null && kl !== 21) {
+            alert('Invalid license. Please contact support.');
+        }
     }
 
     setup_layers() {

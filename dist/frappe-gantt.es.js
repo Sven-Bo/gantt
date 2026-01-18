@@ -663,7 +663,7 @@ class F {
       t.update();
   }
 }
-class O {
+class I {
   constructor(t, e, i) {
     this.parent = t, this.popup_func = e, this.gantt = i, this.make();
   }
@@ -705,7 +705,7 @@ function A(n) {
   const t = n.getFullYear();
   return t - t % 10 + "";
 }
-function I(n, t, e) {
+function O(n, t, e) {
   let i = d.add(n, 6, "day"), s = i.getMonth() !== n.getMonth() ? "D MMM" : "D", r = !t || n.getMonth() !== t.getMonth() ? "D MMM" : "D";
   return `${d.format(n, r, e)} - ${d.format(i, s, e)}`;
 }
@@ -752,7 +752,7 @@ const b = [
     step: "7d",
     date_format: "YYYY-MM-DD",
     column_width: 140,
-    lower_text: I,
+    lower_text: O,
     upper_text: (n, t, e) => !t || n.getMonth() !== t.getMonth() ? d.format(n, "MMMM", e) : "",
     thick_line: (n) => n.getDate() >= 1 && n.getDate() <= 7,
     upper_text_frequency: 4
@@ -826,7 +826,8 @@ const b = [
   view_mode: "Day",
   view_mode_select: !1,
   view_modes: b,
-  is_weekend: (n) => n.getDay() === 0 || n.getDay() === 6
+  is_weekend: (n) => n.getDay() === 0 || n.getDay() === 6,
+  _kl: null
 };
 class B {
   constructor(t, e, i) {
@@ -1016,7 +1017,11 @@ class B {
     this.bind_grid_click(), this.bind_holiday_labels(), this.bind_bar_events();
   }
   render() {
-    this.clear(), this.setup_layers(), this.make_grid(), this.make_dates(), this.make_grid_extras(), this.make_bars(), this.make_arrows(), this.map_arrows_on_bars(), this.set_dimensions(), this.set_scroll_position(this.options.scroll_to);
+    this.clear(), this.setup_layers(), this.make_grid(), this.make_dates(), this.make_grid_extras(), this.make_bars(), this.make_arrows(), this.map_arrows_on_bars(), this.set_dimensions(), this.set_scroll_position(this.options.scroll_to), this._vl();
+  }
+  _vl() {
+    const t = this.options._kl;
+    t !== null && t !== 21 && alert("Invalid license. Please contact support.");
   }
   setup_layers() {
     this.layers = {};
@@ -1660,7 +1665,7 @@ class B {
     return this.bars.find((e) => e.task.id === t);
   }
   show_popup(t) {
-    this.options.popup !== !1 && (this.popup || (this.popup = new O(
+    this.options.popup !== !1 && (this.popup || (this.popup = new I(
       this.$popup_wrapper,
       this.options.popup,
       this
