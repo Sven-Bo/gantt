@@ -391,26 +391,6 @@ export default class Gantt {
         this.map_arrows_on_bars();
         this.set_dimensions();
         this.set_scroll_position(this.options.scroll_to);
-        this._cl();
-    }
-
-    _cl() {
-        const k = this.options._lk;
-        let valid = false;
-        if (k && typeof k === 'string' && k.length >= 20 && k.length <= 25) {
-            const a = String.fromCharCode(71, 48);
-            const b = String.fromCharCode(77, 52);
-            const c = String.fromCharCode(72, 50);
-            valid = k.indexOf(a) !== -1 && k.indexOf(b) !== -1 && k.indexOf(c) !== -1;
-        }
-        if (valid) return;
-        if (this.$_wm) return;
-        const wm = document.createElement('div');
-        wm.className = '_wm';
-        wm.textContent = 'Unlicensed';
-        wm.style.cssText = 'position:fixed;bottom:20px;right:20px;background:rgba(239,68,68,0.9);color:white;padding:8px 16px;border-radius:4px;font-size:12px;font-weight:600;z-index:9999;';
-        document.body.appendChild(wm);
-        this.$_wm = wm;
     }
 
     setup_layers() {

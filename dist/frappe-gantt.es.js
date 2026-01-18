@@ -1,4 +1,4 @@
-const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second", S = "millisecond", d = {
+const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second", E = "millisecond", d = {
   parse_duration(n) {
     const e = /([0-9]+)(y|m|d|h|min|s|ms)/gm.exec(n);
     if (e !== null) {
@@ -32,7 +32,7 @@ const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second"
   to_string(n, t = !1) {
     if (!(n instanceof Date))
       throw new TypeError("Invalid argument type");
-    const e = this.get_date_values(n).map((r, a) => (a === 1 && (r = r + 1), a === 6 ? x(r + "", 3, "0") : x(r + "", 2, "0"))), i = `${e[0]}-${e[1]}-${e[2]}`, s = `${e[3]}:${e[4]}:${e[5]}.${e[6]}`;
+    const e = this.get_date_values(n).map((r, a) => (a === 1 && (r = r + 1), a === 6 ? $(r + "", 3, "0") : $(r + "", 2, "0"))), i = `${e[0]}-${e[1]}-${e[2]}`, s = `${e[3]}:${e[4]}:${e[5]}.${e[6]}`;
     return i + (t ? " " + s : "");
   },
   format(n, t = "YYYY-MM-DD HH:mm:ss.SSS", e = "en") {
@@ -40,9 +40,9 @@ const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second"
       month: "long"
     }), s = new Intl.DateTimeFormat(e, {
       month: "short"
-    }), r = i.format(n), a = r.charAt(0).toUpperCase() + r.slice(1), o = this.get_date_values(n).map((g) => x(g, 2, 0)), h = {
+    }), r = i.format(n), a = r.charAt(0).toUpperCase() + r.slice(1), o = this.get_date_values(n).map((g) => $(g, 2, 0)), h = {
       YYYY: o[0],
-      MM: x(+o[1] + 1, 2, 0),
+      MM: $(+o[1] + 1, 2, 0),
       DD: o[2],
       HH: o[3],
       mm: o[4],
@@ -92,7 +92,7 @@ const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second"
       n.getHours() + (e === D ? t : 0),
       n.getMinutes() + (e === T ? t : 0),
       n.getSeconds() + (e === L ? t : 0),
-      n.getMilliseconds() + (e === S ? t : 0)
+      n.getMilliseconds() + (e === E ? t : 0)
     ];
     return new Date(...i);
   },
@@ -104,7 +104,7 @@ const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second"
       [D]: 3,
       [T]: 2,
       [L]: 1,
-      [S]: 0
+      [E]: 0
     };
     function i(r) {
       const a = e[t];
@@ -158,7 +158,7 @@ const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second"
     return n.getFullYear() % 4 ? 365 : 366;
   }
 };
-function x(n, t, e) {
+function $(n, t, e) {
   return n = n + "", t = t >> 0, e = String(typeof e < "u" ? e : " "), n.length > t ? String(n) : (t = t - n.length, t > e.length && (e += e.repeat(t / e.length)), e.slice(0, t) + String(n));
 }
 function p(n, t) {
@@ -171,13 +171,13 @@ function f(n, t) {
   return e;
 }
 function Y(n, t, e, i) {
-  const s = C(n, t, e, i);
+  const s = W(n, t, e, i);
   if (s === n) {
     const r = document.createEvent("HTMLEvents");
     r.initEvent("click", !0, !0), r.eventName = "click", s.dispatchEvent(r);
   }
 }
-function C(n, t, e, i, s = "0.4s", r = "0.1s") {
+function W(n, t, e, i, s = "0.4s", r = "0.1s") {
   const a = n.querySelector("animate");
   if (a)
     return p.attr(a, {
@@ -197,11 +197,11 @@ function C(n, t, e, i, s = "0.4s", r = "0.1s") {
     calcMode: "spline",
     values: e + ";" + i,
     keyTimes: "0; 1",
-    keySplines: W("ease-out")
+    keySplines: C("ease-out")
   });
   return n.appendChild(o), n;
 }
-function W(n) {
+function C(n) {
   return {
     ease: ".25 .1 .25 1",
     linear: "0 0 1 1",
@@ -293,7 +293,7 @@ class q {
     this.calculate_path(), this.element.setAttribute("d", this.path);
   }
 }
-class O {
+class F {
   constructor(t, e) {
     this.set_defaults(t, e), this.prepare_wrappers(), this.prepare_helpers(), this.refresh();
   }
@@ -663,7 +663,7 @@ class O {
       t.update();
   }
 }
-class F {
+class O {
   constructor(t, e, i) {
     this.parent = t, this.popup_func = e, this.gantt = i, this.make();
   }
@@ -705,7 +705,7 @@ function A(n) {
   const t = n.getFullYear();
   return t - t % 10 + "";
 }
-function z(n, t, e) {
+function I(n, t, e) {
   let i = d.add(n, 6, "day"), s = i.getMonth() !== n.getMonth() ? "D MMM" : "D", r = !t || n.getMonth() !== t.getMonth() ? "D MMM" : "D";
   return `${d.format(n, r, e)} - ${d.format(i, s, e)}`;
 }
@@ -752,7 +752,7 @@ const b = [
     step: "7d",
     date_format: "YYYY-MM-DD",
     column_width: 140,
-    lower_text: z,
+    lower_text: I,
     upper_text: (n, t, e) => !t || n.getMonth() !== t.getMonth() ? d.format(n, "MMMM", e) : "",
     thick_line: (n) => n.getDate() >= 1 && n.getDate() <= 7,
     upper_text_frequency: 4
@@ -778,7 +778,7 @@ const b = [
     lower_text: "YYYY",
     snap_at: "30d"
   }
-], I = {
+], z = {
   arrow_curve: 5,
   auto_move_label: !1,
   bar_corner_radius: 3,
@@ -826,8 +826,7 @@ const b = [
   view_mode: "Day",
   view_mode_select: !1,
   view_modes: b,
-  is_weekend: (n) => n.getDay() === 0 || n.getDay() === 6,
-  _lk: null
+  is_weekend: (n) => n.getDay() === 0 || n.getDay() === 6
 };
 class B {
   constructor(t, e, i) {
@@ -873,7 +872,7 @@ class B {
         ), s;
       }
       return i;
-    }), t.view_mode = t.view_modes[0]), this.options = { ...I, ...t };
+    }), t.view_mode = t.view_modes[0]), this.options = { ...z, ...t };
     const e = {
       "grid-height": "container_height",
       "bar-height": "bar_height",
@@ -935,7 +934,7 @@ class B {
         let o = [];
         e.dependencies && (o = e.dependencies.split(",").map((h) => h.trim().replaceAll(" ", "_")).filter((h) => h)), e.dependencies = o;
       }
-      return e.id ? typeof e.id == "string" ? e.id = e.id.replaceAll(" ", "_") : e.id = `${e.id}` : e.id = N(e), e;
+      return e.id ? typeof e.id == "string" ? e.id = e.id.replaceAll(" ", "_") : e.id = `${e.id}` : e.id = j(e), e;
     }).filter((e) => e), this.setup_dependencies();
   }
   setup_dependencies() {
@@ -1017,14 +1016,7 @@ class B {
     this.bind_grid_click(), this.bind_holiday_labels(), this.bind_bar_events();
   }
   render() {
-    this.clear(), this.setup_layers(), this.make_grid(), this.make_dates(), this.make_grid_extras(), this.make_bars(), this.make_arrows(), this.map_arrows_on_bars(), this.set_dimensions(), this.set_scroll_position(this.options.scroll_to), this._cl();
-  }
-  _cl() {
-    const t = this.options._lk;
-    let e = !1;
-    if (t && typeof t == "string" && t.length >= 20 && t.length <= 25 && (e = t.indexOf("G0") !== -1 && t.indexOf("M4") !== -1 && t.indexOf("H2") !== -1), e || this.$_wm) return;
-    const i = document.createElement("div");
-    i.className = "_wm", i.textContent = "Unlicensed", i.style.cssText = "position:fixed;bottom:20px;right:20px;background:rgba(239,68,68,0.9);color:white;padding:8px 16px;border-radius:4px;font-size:12px;font-weight:600;z-index:9999;", document.body.appendChild(i), this.$_wm = i;
+    this.clear(), this.setup_layers(), this.make_grid(), this.make_dates(), this.make_grid_extras(), this.make_bars(), this.make_arrows(), this.map_arrows_on_bars(), this.set_dimensions(), this.set_scroll_position(this.options.scroll_to);
   }
   setup_layers() {
     this.layers = {};
@@ -1274,7 +1266,7 @@ class B {
         let i = this.create_el({
           left: t.x,
           top: t.lower_y,
-          classes: "lower-text date_" + $(t.formatted_date),
+          classes: "lower-text date_" + x(t.formatted_date),
           append_to: this.$lower_header
         });
         i.innerText = t.lower_text;
@@ -1306,7 +1298,7 @@ class B {
     let r = this.config.view_mode.upper_text, a = this.config.view_mode.lower_text;
     return r ? typeof r == "string" && (this.config.view_mode.upper_text = (o) => d.format(o, r, this.options.language)) : this.config.view_mode.upper_text = () => "", a ? typeof a == "string" && (this.config.view_mode.lower_text = (o) => d.format(o, a, this.options.language)) : this.config.view_mode.lower_text = () => "", {
       date: t,
-      formatted_date: $(
+      formatted_date: x(
         d.format(
           t,
           this.config.date_format,
@@ -1331,7 +1323,7 @@ class B {
   }
   make_bars() {
     this.bars = this.tasks.map((t) => {
-      const e = new O(this, t);
+      const e = new F(this, t);
       return this.layers.bar.appendChild(e.group), e;
     });
   }
@@ -1414,7 +1406,7 @@ class B {
     let t = /* @__PURE__ */ new Date();
     if (t < this.gantt_start || t > this.gantt_end) return null;
     let e = /* @__PURE__ */ new Date(), i = this.$container.querySelector(
-      ".date_" + $(
+      ".date_" + x(
         d.format(
           e,
           this.config.date_format,
@@ -1424,7 +1416,7 @@ class B {
     ), s = 0;
     for (; !i && s < this.config.step; )
       e = d.add(e, -1, this.config.unit), i = this.$container.querySelector(
-        ".date_" + $(
+        ".date_" + x(
           d.format(
             e,
             this.config.date_format,
@@ -1550,10 +1542,10 @@ class B {
       ), m = this.upperTexts.find(
         (w) => w.textContent === y
       ), m !== this.$current && (this.$current && this.$current.classList.remove("current-upper"), m.classList.add("current-upper"), this.$current = m), i = _.currentTarget.scrollLeft;
-      let [H, E, X] = this.get_start_end_positions();
+      let [H, S, X] = this.get_start_end_positions();
       i > X + 100 ? (this.$adjust.innerHTML = "&larr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
         this.$container.scrollTo({
-          left: E,
+          left: S,
           behavior: "smooth"
         });
       }) : i + _.currentTarget.offsetWidth < H - 100 ? (this.$adjust.innerHTML = "&rarr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
@@ -1668,7 +1660,7 @@ class B {
     return this.bars.find((e) => e.task.id === t);
   }
   show_popup(t) {
-    this.options.popup !== !1 && (this.popup || (this.popup = new F(
+    this.options.popup !== !1 && (this.popup || (this.popup = new O(
       this.$popup_wrapper,
       this.options.popup,
       this
@@ -1710,10 +1702,10 @@ B.VIEW_MODE = {
   MONTH: b[5],
   YEAR: b[6]
 };
-function N(n) {
+function j(n) {
   return n.name + "_" + Math.random().toString(36).slice(2, 12);
 }
-function $(n) {
+function x(n) {
   return n.replaceAll(" ", "_").replaceAll(":", "_").replaceAll(".", "_");
 }
 export {
