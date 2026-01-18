@@ -131,10 +131,13 @@ export default class Bar {
             this.$bar.getEndX = () => this.x + size;
         } else {
             this.is_milestone = false;
+            // Ensure minimum width for same-day tasks
+            const minWidth = this.gantt.config.column_width * 0.3;
+            const barWidth = Math.max(this.width, minWidth);
             this.$bar = createSVG('rect', {
                 x: this.x,
                 y: this.y,
-                width: this.width,
+                width: barWidth,
                 height: this.height,
                 rx: this.corner_radius,
                 ry: this.corner_radius,
@@ -142,7 +145,7 @@ export default class Bar {
                 append_to: this.bar_group,
             });
             if (this.task.color) this.$bar.style.fill = this.task.color;
-            animateSVG(this.$bar, 'width', 0, this.width);
+            animateSVG(this.$bar, 'width', 0, barWidth);
         }
 
         if (this.invalid) {

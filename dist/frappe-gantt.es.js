@@ -347,17 +347,20 @@ class F {
         class: "bar milestone",
         append_to: this.bar_group
       }), this.task.color && (this.$bar.style.fill = this.task.color), this.width = i, this.$bar.getX = () => this.x, this.$bar.getY = () => this.y, this.$bar.getWidth = () => i, this.$bar.getHeight = () => this.height, this.$bar.getEndX = () => this.x + i;
-    } else
-      this.is_milestone = !1, this.$bar = f("rect", {
+    } else {
+      this.is_milestone = !1;
+      const i = this.gantt.config.column_width * 0.3, s = Math.max(this.width, i);
+      this.$bar = f("rect", {
         x: this.x,
         y: this.y,
-        width: this.width,
+        width: s,
         height: this.height,
         rx: this.corner_radius,
         ry: this.corner_radius,
         class: "bar",
         append_to: this.bar_group
-      }), this.task.color && (this.$bar.style.fill = this.task.color), Y(this.$bar, "width", 0, this.width);
+      }), this.task.color && (this.$bar.style.fill = this.task.color), Y(this.$bar, "width", 0, s);
+    }
     this.invalid && this.$bar.classList.add("bar-invalid");
   }
   draw_expected_progress_bar() {
