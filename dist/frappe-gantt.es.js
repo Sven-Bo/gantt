@@ -1,4 +1,4 @@
-const v = "year", k = "month", M = "day", D = "hour", L = "minute", T = "second", E = "millisecond", d = {
+const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second", E = "millisecond", d = {
   parse_duration(n) {
     const e = /([0-9]+)(y|m|d|h|min|s|ms)/gm.exec(n);
     if (e !== null) {
@@ -32,7 +32,7 @@ const v = "year", k = "month", M = "day", D = "hour", L = "minute", T = "second"
   to_string(n, t = !1) {
     if (!(n instanceof Date))
       throw new TypeError("Invalid argument type");
-    const e = this.get_date_values(n).map((r, a) => (a === 1 && (r = r + 1), a === 6 ? $(r + "", 3, "0") : $(r + "", 2, "0"))), i = `${e[0]}-${e[1]}-${e[2]}`, s = `${e[3]}:${e[4]}:${e[5]}.${e[6]}`;
+    const e = this.get_date_values(n).map((r, a) => (a === 1 && (r = r + 1), a === 6 ? x(r + "", 3, "0") : x(r + "", 2, "0"))), i = `${e[0]}-${e[1]}-${e[2]}`, s = `${e[3]}:${e[4]}:${e[5]}.${e[6]}`;
     return i + (t ? " " + s : "");
   },
   format(n, t = "YYYY-MM-DD HH:mm:ss.SSS", e = "en") {
@@ -40,9 +40,9 @@ const v = "year", k = "month", M = "day", D = "hour", L = "minute", T = "second"
       month: "long"
     }), s = new Intl.DateTimeFormat(e, {
       month: "short"
-    }), r = i.format(n), a = r.charAt(0).toUpperCase() + r.slice(1), o = this.get_date_values(n).map((g) => $(g, 2, 0)), h = {
+    }), r = i.format(n), a = r.charAt(0).toUpperCase() + r.slice(1), o = this.get_date_values(n).map((g) => x(g, 2, 0)), h = {
       YYYY: o[0],
-      MM: $(+o[1] + 1, 2, 0),
+      MM: x(+o[1] + 1, 2, 0),
       DD: o[2],
       HH: o[3],
       mm: o[4],
@@ -90,8 +90,8 @@ const v = "year", k = "month", M = "day", D = "hour", L = "minute", T = "second"
       n.getMonth() + (e === k ? t : 0),
       n.getDate() + (e === M ? t : 0),
       n.getHours() + (e === D ? t : 0),
-      n.getMinutes() + (e === L ? t : 0),
-      n.getSeconds() + (e === T ? t : 0),
+      n.getMinutes() + (e === T ? t : 0),
+      n.getSeconds() + (e === L ? t : 0),
       n.getMilliseconds() + (e === E ? t : 0)
     ];
     return new Date(...i);
@@ -102,8 +102,8 @@ const v = "year", k = "month", M = "day", D = "hour", L = "minute", T = "second"
       [k]: 5,
       [M]: 4,
       [D]: 3,
-      [L]: 2,
-      [T]: 1,
+      [T]: 2,
+      [L]: 1,
       [E]: 0
     };
     function i(r) {
@@ -116,8 +116,8 @@ const v = "year", k = "month", M = "day", D = "hour", L = "minute", T = "second"
       i(k) ? 1 : n.getDate(),
       i(M) ? 0 : n.getHours(),
       i(D) ? 0 : n.getMinutes(),
-      i(L) ? 0 : n.getSeconds(),
-      i(T) ? 0 : n.getMilliseconds()
+      i(T) ? 0 : n.getSeconds(),
+      i(L) ? 0 : n.getMilliseconds()
     ];
     return new Date(...s);
   },
@@ -158,7 +158,7 @@ const v = "year", k = "month", M = "day", D = "hour", L = "minute", T = "second"
     return n.getFullYear() % 4 ? 365 : 366;
   }
 };
-function $(n, t, e) {
+function x(n, t, e) {
   return n = n + "", t = t >> 0, e = String(typeof e < "u" ? e : " "), n.length > t ? String(n) : (t = t - n.length, t > e.length && (e += e.repeat(t / e.length)), e.slice(0, t) + String(n));
 }
 function p(n, t) {
@@ -1021,7 +1021,7 @@ class B {
   }
   _vl() {
     const t = this.options._kl;
-    t !== null && t !== 21 && (this.$svg.innerHTML = "", this.$container.innerHTML = '<div style="padding:40px;text-align:center;color:#dc2626;font-family:sans-serif;"><h2>Invalid License</h2><p>Please contact support to resolve this issue.</p></div>');
+    t !== null && t !== 21 && (this.$svg.innerHTML = "", this.$container.innerHTML = '<div style="padding:40px;text-align:center;color:#dc2626;font-family:sans-serif;"><h2>⚠️ License Violation Detected</h2><p>This software has been tampered with or is being used without a valid license.</p><p style="margin-top:16px;font-size:14px;color:#666;">If you believe this is an error, please contact support with your purchase details.</p></div>');
   }
   setup_layers() {
     this.layers = {};
@@ -1271,7 +1271,7 @@ class B {
         let i = this.create_el({
           left: t.x,
           top: t.lower_y,
-          classes: "lower-text date_" + x(t.formatted_date),
+          classes: "lower-text date_" + $(t.formatted_date),
           append_to: this.$lower_header
         });
         i.innerText = t.lower_text;
@@ -1303,7 +1303,7 @@ class B {
     let r = this.config.view_mode.upper_text, a = this.config.view_mode.lower_text;
     return r ? typeof r == "string" && (this.config.view_mode.upper_text = (o) => d.format(o, r, this.options.language)) : this.config.view_mode.upper_text = () => "", a ? typeof a == "string" && (this.config.view_mode.lower_text = (o) => d.format(o, a, this.options.language)) : this.config.view_mode.lower_text = () => "", {
       date: t,
-      formatted_date: x(
+      formatted_date: $(
         d.format(
           t,
           this.config.date_format,
@@ -1411,7 +1411,7 @@ class B {
     let t = /* @__PURE__ */ new Date();
     if (t < this.gantt_start || t > this.gantt_end) return null;
     let e = /* @__PURE__ */ new Date(), i = this.$container.querySelector(
-      ".date_" + x(
+      ".date_" + $(
         d.format(
           e,
           this.config.date_format,
@@ -1421,7 +1421,7 @@ class B {
     ), s = 0;
     for (; !i && s < this.config.step; )
       e = d.add(e, -1, this.config.unit), i = this.$container.querySelector(
-        ".date_" + x(
+        ".date_" + $(
           d.format(
             e,
             this.config.date_format,
@@ -1710,7 +1710,7 @@ B.VIEW_MODE = {
 function j(n) {
   return n.name + "_" + Math.random().toString(36).slice(2, 12);
 }
-function x(n) {
+function $(n) {
   return n.replaceAll(" ", "_").replaceAll(":", "_").replaceAll(".", "_");
 }
 export {

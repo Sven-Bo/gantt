@@ -398,7 +398,7 @@ export default class Gantt {
         const kl = this.options._kl;
         if (kl !== null && kl !== 21) {
             this.$svg.innerHTML = '';
-            this.$container.innerHTML = '<div style="padding:40px;text-align:center;color:#dc2626;font-family:sans-serif;"><h2>Invalid License</h2><p>Please contact support to resolve this issue.</p></div>';
+            this.$container.innerHTML = '<div style="padding:40px;text-align:center;color:#dc2626;font-family:sans-serif;"><h2>⚠️ License Violation Detected</h2><p>This software has been tampered with or is being used without a valid license.</p><p style="margin-top:16px;font-size:14px;color:#666;">If you believe this is an error, please contact support with your purchase details.</p></div>';
         }
     }
 
