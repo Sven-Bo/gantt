@@ -105,18 +105,39 @@ export default class Bar {
     }
 
     draw_bar() {
-        this.$bar = createSVG('rect', {
-            x: this.x,
-            y: this.y,
-            width: this.width,
-            height: this.height,
-            rx: this.corner_radius,
-            ry: this.corner_radius,
-            class: 'bar',
-            append_to: this.bar_group,
-        });
-        if (this.task.color) this.$bar.style.fill = this.task.color;
-        animateSVG(this.$bar, 'width', 0, this.width);
+        const isMilestone = this.task._start.getTime() === this.task._end.getTime() || 
+                           (this.width < this.gantt.config.column_width * 0.5);
+        
+        if (isMilestone) {
+            this.is_milestone = true;
+            const size = this.height;
+            const cx = this.x + size / 2;
+            const cy = this.y + this.height / 2;
+            
+            this.$bar = createSVG('polygon', {
+                points: `${cx},${cy - size/2} ${cx + size/2},${cy} ${cx},${cy + size/2} ${cx - size/2},${cy}`,
+                class: 'bar milestone',
+                append_to: this.bar_group,
+            });
+            if (this.task.color) {
+                this.$bar.style.fill = this.task.color;
+            }
+            this.width = size;
+        } else {
+            this.is_milestone = false;
+            this.$bar = createSVG('rect', {
+                x: this.x,
+                y: this.y,
+                width: this.width,
+                height: this.height,
+                rx: this.corner_radius,
+                ry: this.corner_radius,
+                class: 'bar',
+                append_to: this.bar_group,
+            });
+            if (this.task.color) this.$bar.style.fill = this.task.color;
+            animateSVG(this.$bar, 'width', 0, this.width);
+        }
 
         if (this.invalid) {
             this.$bar.classList.add('bar-invalid');
@@ -145,7 +166,7 @@ export default class Bar {
     }
 
     draw_progress_bar() {
-        if (this.invalid) return;
+        if (this.invalid || this.is_milestone) return;
         this.progress_width = this.calculate_progress_width();
         let r = this.corner_radius;
         if (!/^((?!chrome|android).)*safari/i.test(navigator.userAgent))
@@ -214,17 +235,22 @@ export default class Bar {
     }
 
     draw_label() {
-        let x_coord = this.x + this.$bar.getWidth() / 2;
-
-        if (this.task.thumbnail) {
-            x_coord = this.x + this.image_size + 5;
+        let x_coord;
+        
+        if (this.is_milestone) {
+            x_coord = this.x + this.height + 5;
+        } else {
+            x_coord = this.x + this.$bar.getWidth() / 2;
+            if (this.task.thumbnail) {
+                x_coord = this.x + this.image_size + 5;
+            }
         }
 
         createSVG('text', {
             x: x_coord,
             y: this.y + this.height / 2,
             innerHTML: this.task.name,
-            class: 'bar-label',
+            class: 'bar-label' + (this.is_milestone ? ' milestone-label' : ''),
             append_to: this.bar_group,
         });
         // labels get BBox in the next tick
@@ -274,7 +300,7 @@ export default class Bar {
     }
 
     draw_resize_handles() {
-        if (this.invalid || this.gantt.options.readonly) return;
+        if (this.invalid || this.gantt.options.readonly || this.is_milestone) return;
 
         const bar = this.$bar;
         const handle_width = 3;
@@ -707,6 +733,13 @@ export default class Bar {
             img = this.group.querySelector('.bar-img');
 
         let padding = 5;
+        
+        if (this.is_milestone) {
+            label.classList.add('big');
+            label.setAttribute('x', this.x + this.height + padding);
+            return;
+        }
+        
         let x_offset_label_img = this.image_size + 10;
         const labelWidth = label.getBBox().width;
         const barWidth = bar.getWidth();

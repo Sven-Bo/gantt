@@ -355,6 +355,15 @@
             outline: 1px solid var(--g-row-border-color);
             border-radius: 3px;
         }
+        
+        & .bar.milestone {
+            fill: #f59e0b;
+            outline: none;
+        }
+        
+        & .milestone-label {
+            text-anchor: start;
+        }
 
         &:hover {
             .bar {
