@@ -105,7 +105,8 @@ export default class Bar {
     }
 
     draw_bar() {
-        const isMilestone = this.task.name && this.task.name.toLowerCase().startsWith('milestone:');
+        const keyword = (this.gantt.options.milestone_keyword || 'Milestone:').toLowerCase();
+        const isMilestone = this.task.name && this.task.name.toLowerCase().startsWith(keyword);
         
         if (isMilestone) {
             this.is_milestone = true;

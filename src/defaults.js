@@ -170,6 +170,7 @@ const DEFAULT_OPTIONS = {
     view_modes: DEFAULT_VIEW_MODES,
     is_weekend: (d) => d.getDay() === 0 || d.getDay() === 6,
     _kl: null,
+    milestone_keyword: 'Milestone:',
 };
 
 export { DEFAULT_OPTIONS, DEFAULT_VIEW_MODES };

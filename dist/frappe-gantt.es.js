@@ -338,14 +338,15 @@ class F {
     this.draw_bar(), this.draw_progress_bar(), this.gantt.options.show_expected_progress && (this.prepare_expected_progress_values(), this.draw_expected_progress_bar()), this.draw_label(), this.draw_resize_handles(), this.task.thumbnail && this.draw_thumbnail();
   }
   draw_bar() {
-    if (this.task.name && this.task.name.toLowerCase().startsWith("milestone:")) {
+    const t = (this.gantt.options.milestone_keyword || "Milestone:").toLowerCase();
+    if (this.task.name && this.task.name.toLowerCase().startsWith(t)) {
       this.is_milestone = !0;
-      const e = this.height, i = this.x + e / 2, s = this.y + this.height / 2;
+      const i = this.height, s = this.x + i / 2, n = this.y + this.height / 2;
       this.$bar = f("polygon", {
-        points: `${i},${s - e / 2} ${i + e / 2},${s} ${i},${s + e / 2} ${i - e / 2},${s}`,
+        points: `${s},${n - i / 2} ${s + i / 2},${n} ${s},${n + i / 2} ${s - i / 2},${n}`,
         class: "bar milestone",
         append_to: this.bar_group
-      }), this.task.color && (this.$bar.style.fill = this.task.color), this.width = e, this.$bar.getX = () => this.x, this.$bar.getY = () => this.y, this.$bar.getWidth = () => e, this.$bar.getHeight = () => this.height, this.$bar.getEndX = () => this.x + e;
+      }), this.task.color && (this.$bar.style.fill = this.task.color), this.width = i, this.$bar.getX = () => this.x, this.$bar.getY = () => this.y, this.$bar.getWidth = () => i, this.$bar.getHeight = () => this.height, this.$bar.getEndX = () => this.x + i;
     } else
       this.is_milestone = !1, this.$bar = f("rect", {
         x: this.x,
@@ -842,7 +843,8 @@ const b = [
   view_mode_select: !1,
   view_modes: b,
   is_weekend: (r) => r.getDay() === 0 || r.getDay() === 6,
-  _kl: null
+  _kl: null,
+  milestone_keyword: "Milestone:"
 };
 class B {
   constructor(t, e, i) {
