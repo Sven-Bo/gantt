@@ -1,4 +1,4 @@
-const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second", S = "millisecond", d = {
+const v = "year", k = "month", M = "day", D = "hour", L = "minute", T = "second", S = "millisecond", d = {
   parse_duration(r) {
     const e = /([0-9]+)(y|m|d|h|min|s|ms)/gm.exec(r);
     if (e !== null) {
@@ -90,8 +90,8 @@ const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second"
       r.getMonth() + (e === k ? t : 0),
       r.getDate() + (e === M ? t : 0),
       r.getHours() + (e === D ? t : 0),
-      r.getMinutes() + (e === T ? t : 0),
-      r.getSeconds() + (e === L ? t : 0),
+      r.getMinutes() + (e === L ? t : 0),
+      r.getSeconds() + (e === T ? t : 0),
       r.getMilliseconds() + (e === S ? t : 0)
     ];
     return new Date(...i);
@@ -102,8 +102,8 @@ const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second"
       [k]: 5,
       [M]: 4,
       [D]: 3,
-      [T]: 2,
-      [L]: 1,
+      [L]: 2,
+      [T]: 1,
       [S]: 0
     };
     function i(n) {
@@ -116,8 +116,8 @@ const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second"
       i(k) ? 1 : r.getDate(),
       i(M) ? 0 : r.getHours(),
       i(D) ? 0 : r.getMinutes(),
-      i(T) ? 0 : r.getSeconds(),
-      i(L) ? 0 : r.getMilliseconds()
+      i(L) ? 0 : r.getSeconds(),
+      i(T) ? 0 : r.getMilliseconds()
     ];
     return new Date(...s);
   },
@@ -197,11 +197,11 @@ function W(r, t, e, i, s = "0.4s", n = "0.1s") {
     calcMode: "spline",
     values: e + ";" + i,
     keyTimes: "0; 1",
-    keySplines: q("ease-out")
+    keySplines: C("ease-out")
   });
   return r.appendChild(o), r;
 }
-function q(r) {
+function C(r) {
   return {
     ease: ".25 .1 .25 1",
     linear: "0 0 1 1",
@@ -238,7 +238,7 @@ p.attr = (r, t, e) => {
   }
   r.setAttribute(t, e);
 };
-class C {
+class q {
   constructor(t, e, i) {
     this.gantt = t, this.from_task = e, this.to_task = i, this.calculate_path(), this.draw();
   }
@@ -338,7 +338,7 @@ class F {
     this.draw_bar(), this.draw_progress_bar(), this.gantt.options.show_expected_progress && (this.prepare_expected_progress_values(), this.draw_expected_progress_bar()), this.draw_label(), this.draw_resize_handles(), this.task.thumbnail && this.draw_thumbnail();
   }
   draw_bar() {
-    if (this.task._start.getTime() === this.task._end.getTime()) {
+    if (this.task.name && this.task.name.toLowerCase().startsWith("milestone:")) {
       this.is_milestone = !0;
       const e = this.height, i = this.x + e / 2, s = this.y + this.height / 2;
       this.$bar = f("polygon", {
@@ -1364,7 +1364,7 @@ class B {
       e = t.dependencies.map((i) => {
         const s = this.get_task(i);
         if (!s) return;
-        const n = new C(
+        const n = new q(
           this,
           this.bars[s._index],
           // from_task

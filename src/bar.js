@@ -105,7 +105,7 @@ export default class Bar {
     }
 
     draw_bar() {
-        const isMilestone = this.task._start.getTime() === this.task._end.getTime();
+        const isMilestone = this.task.name && this.task.name.toLowerCase().startsWith('milestone:');
         
         if (isMilestone) {
             this.is_milestone = true;
