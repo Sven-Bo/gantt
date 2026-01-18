@@ -174,11 +174,13 @@ const DEFAULT_OPTIONS = {
 
 // Simple obfuscated validation
 const _v = (k) => {
-    if (!k || typeof k !== 'string' || k.length < 8) return false;
-    const p = k.split('-');
-    if (p.length !== 3) return false;
-    const s = p.reduce((a, b) => a + b.length, 0);
-    return s >= 12 && p[0].length >= 3 && p[2].length >= 3;
+    if (!k || typeof k !== 'string') return false;
+    const l = k.length;
+    if (l < 20 || l > 25) return false;
+    const a = String.fromCharCode(71, 48);
+    const b = String.fromCharCode(77, 52);
+    const d = String.fromCharCode(72, 50);
+    return k.indexOf(a) !== -1 && k.indexOf(b) !== -1 && k.indexOf(d) !== -1;
 };
 
 export { DEFAULT_OPTIONS, DEFAULT_VIEW_MODES, _v };

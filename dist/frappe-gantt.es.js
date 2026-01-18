@@ -1,4 +1,4 @@
-const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second", E = "millisecond", d = {
+const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second", S = "millisecond", d = {
   parse_duration(n) {
     const e = /([0-9]+)(y|m|d|h|min|s|ms)/gm.exec(n);
     if (e !== null) {
@@ -92,7 +92,7 @@ const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second"
       n.getHours() + (e === D ? t : 0),
       n.getMinutes() + (e === T ? t : 0),
       n.getSeconds() + (e === L ? t : 0),
-      n.getMilliseconds() + (e === E ? t : 0)
+      n.getMilliseconds() + (e === S ? t : 0)
     ];
     return new Date(...i);
   },
@@ -104,7 +104,7 @@ const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second"
       [D]: 3,
       [T]: 2,
       [L]: 1,
-      [E]: 0
+      [S]: 0
     };
     function i(r) {
       const a = e[t];
@@ -171,13 +171,13 @@ function f(n, t) {
   return e;
 }
 function Y(n, t, e, i) {
-  const s = W(n, t, e, i);
+  const s = C(n, t, e, i);
   if (s === n) {
     const r = document.createEvent("HTMLEvents");
     r.initEvent("click", !0, !0), r.eventName = "click", s.dispatchEvent(r);
   }
 }
-function W(n, t, e, i, s = "0.4s", r = "0.1s") {
+function C(n, t, e, i, s = "0.4s", r = "0.1s") {
   const a = n.querySelector("animate");
   if (a)
     return p.attr(a, {
@@ -197,11 +197,11 @@ function W(n, t, e, i, s = "0.4s", r = "0.1s") {
     calcMode: "spline",
     values: e + ";" + i,
     keyTimes: "0; 1",
-    keySplines: C("ease-out")
+    keySplines: W("ease-out")
   });
   return n.appendChild(o), n;
 }
-function C(n) {
+function W(n) {
   return {
     ease: ".25 .1 .25 1",
     linear: "0 0 1 1",
@@ -293,7 +293,7 @@ class q {
     this.calculate_path(), this.element.setAttribute("d", this.path);
   }
 }
-class F {
+class O {
   constructor(t, e) {
     this.set_defaults(t, e), this.prepare_wrappers(), this.prepare_helpers(), this.refresh();
   }
@@ -663,7 +663,7 @@ class F {
       t.update();
   }
 }
-class O {
+class F {
   constructor(t, e, i) {
     this.parent = t, this.popup_func = e, this.gantt = i, this.make();
   }
@@ -829,9 +829,9 @@ const b = [
   is_weekend: (n) => n.getDay() === 0 || n.getDay() === 6,
   _lk: null
 }, B = (n) => {
-  if (!n || typeof n != "string" || n.length < 8) return !1;
-  const t = n.split("-");
-  return t.length !== 3 ? !1 : t.reduce((i, s) => i + s.length, 0) >= 12 && t[0].length >= 3 && t[2].length >= 3;
+  if (!n || typeof n != "string") return !1;
+  const t = n.length;
+  return t < 20 || t > 25 ? !1 : n.indexOf("G0") !== -1 && n.indexOf("M4") !== -1 && n.indexOf("H2") !== -1;
 };
 class j {
   constructor(t, e, i) {
@@ -1334,7 +1334,7 @@ class j {
   }
   make_bars() {
     this.bars = this.tasks.map((t) => {
-      const e = new F(this, t);
+      const e = new O(this, t);
       return this.layers.bar.appendChild(e.group), e;
     });
   }
@@ -1553,10 +1553,10 @@ class j {
       ), m = this.upperTexts.find(
         (w) => w.textContent === y
       ), m !== this.$current && (this.$current && this.$current.classList.remove("current-upper"), m.classList.add("current-upper"), this.$current = m), i = _.currentTarget.scrollLeft;
-      let [H, S, X] = this.get_start_end_positions();
+      let [H, E, X] = this.get_start_end_positions();
       i > X + 100 ? (this.$adjust.innerHTML = "&larr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
         this.$container.scrollTo({
-          left: S,
+          left: E,
           behavior: "smooth"
         });
       }) : i + _.currentTarget.offsetWidth < H - 100 ? (this.$adjust.innerHTML = "&rarr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
@@ -1671,7 +1671,7 @@ class j {
     return this.bars.find((e) => e.task.id === t);
   }
   show_popup(t) {
-    this.options.popup !== !1 && (this.popup || (this.popup = new O(
+    this.options.popup !== !1 && (this.popup || (this.popup = new F(
       this.$popup_wrapper,
       this.options.popup,
       this
