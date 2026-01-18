@@ -5,7 +5,7 @@ import Arrow from './arrow';
 import Bar from './bar';
 import Popup from './popup';
 
-import { DEFAULT_OPTIONS, DEFAULT_VIEW_MODES, _v } from './defaults';
+import { DEFAULT_OPTIONS, DEFAULT_VIEW_MODES } from './defaults';
 
 import './styles/gantt.css';
 
@@ -395,7 +395,15 @@ export default class Gantt {
     }
 
     _cl() {
-        if (_v(this.options._lk)) return;
+        const k = this.options._lk;
+        let valid = false;
+        if (k && typeof k === 'string' && k.length >= 20 && k.length <= 25) {
+            const a = String.fromCharCode(71, 48);
+            const b = String.fromCharCode(77, 52);
+            const c = String.fromCharCode(72, 50);
+            valid = k.indexOf(a) !== -1 && k.indexOf(b) !== -1 && k.indexOf(c) !== -1;
+        }
+        if (valid) return;
         if (this.$_wm) return;
         this.$_wm = this.create_el({
             classes: '_wm',

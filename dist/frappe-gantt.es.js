@@ -828,12 +828,8 @@ const b = [
   view_modes: b,
   is_weekend: (n) => n.getDay() === 0 || n.getDay() === 6,
   _lk: null
-}, B = (n) => {
-  if (!n || typeof n != "string") return !1;
-  const t = n.length;
-  return t < 20 || t > 25 ? !1 : n.indexOf("G0") !== -1 && n.indexOf("M4") !== -1 && n.indexOf("H2") !== -1;
 };
-class j {
+class B {
   constructor(t, e, i) {
     this.setup_wrapper(t), this.setup_options(i), this.setup_tasks(e), this.change_view_mode(), this.bind_events();
   }
@@ -939,7 +935,7 @@ class j {
         let o = [];
         e.dependencies && (o = e.dependencies.split(",").map((h) => h.trim().replaceAll(" ", "_")).filter((h) => h)), e.dependencies = o;
       }
-      return e.id ? typeof e.id == "string" ? e.id = e.id.replaceAll(" ", "_") : e.id = `${e.id}` : e.id = N(e), e;
+      return e.id ? typeof e.id == "string" ? e.id = e.id.replaceAll(" ", "_") : e.id = `${e.id}` : e.id = j(e), e;
     }).filter((e) => e), this.setup_dependencies();
   }
   setup_dependencies() {
@@ -1024,10 +1020,12 @@ class j {
     this.clear(), this.setup_layers(), this.make_grid(), this.make_dates(), this.make_grid_extras(), this.make_bars(), this.make_arrows(), this.map_arrows_on_bars(), this.set_dimensions(), this.set_scroll_position(this.options.scroll_to), this._cl();
   }
   _cl() {
-    B(this.options._lk) || this.$_wm || (this.$_wm = this.create_el({
+    const t = this.options._lk;
+    let e = !1;
+    t && typeof t == "string" && t.length >= 20 && t.length <= 25 && (e = t.indexOf("G0") !== -1 && t.indexOf("M4") !== -1 && t.indexOf("H2") !== -1), !e && (this.$_wm || (this.$_wm = this.create_el({
       classes: "_wm",
       append_to: this.$container
-    }), this.$_wm.innerHTML = "Unlicensed");
+    }), this.$_wm.innerHTML = "Unlicensed"));
   }
   setup_layers() {
     this.layers = {};
@@ -1704,7 +1702,7 @@ class j {
     this.$svg.innerHTML = "", (e = (t = this.$header) == null ? void 0 : t.remove) == null || e.call(t), (s = (i = this.$side_header) == null ? void 0 : i.remove) == null || s.call(i), (a = (r = this.$current_highlight) == null ? void 0 : r.remove) == null || a.call(r), (h = (o = this.$extras) == null ? void 0 : o.remove) == null || h.call(o), (_ = (l = this.popup) == null ? void 0 : l.hide) == null || _.call(l);
   }
 }
-j.VIEW_MODE = {
+B.VIEW_MODE = {
   HOUR: b[0],
   QUARTER_DAY: b[1],
   HALF_DAY: b[2],
@@ -1713,12 +1711,12 @@ j.VIEW_MODE = {
   MONTH: b[5],
   YEAR: b[6]
 };
-function N(n) {
+function j(n) {
   return n.name + "_" + Math.random().toString(36).slice(2, 12);
 }
 function x(n) {
   return n.replaceAll(" ", "_").replaceAll(":", "_").replaceAll(".", "_");
 }
 export {
-  j as default
+  B as default
 };
