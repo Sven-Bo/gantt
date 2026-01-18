@@ -1,4 +1,4 @@
-const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second", E = "millisecond", d = {
+const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second", S = "millisecond", d = {
   parse_duration(n) {
     const e = /([0-9]+)(y|m|d|h|min|s|ms)/gm.exec(n);
     if (e !== null) {
@@ -92,7 +92,7 @@ const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second"
       n.getHours() + (e === D ? t : 0),
       n.getMinutes() + (e === T ? t : 0),
       n.getSeconds() + (e === L ? t : 0),
-      n.getMilliseconds() + (e === E ? t : 0)
+      n.getMilliseconds() + (e === S ? t : 0)
     ];
     return new Date(...i);
   },
@@ -104,7 +104,7 @@ const v = "year", k = "month", M = "day", D = "hour", T = "minute", L = "second"
       [D]: 3,
       [T]: 2,
       [L]: 1,
-      [E]: 0
+      [S]: 0
     };
     function i(r) {
       const a = e[t];
@@ -197,11 +197,11 @@ function W(n, t, e, i, s = "0.4s", r = "0.1s") {
     calcMode: "spline",
     values: e + ";" + i,
     keyTimes: "0; 1",
-    keySplines: C("ease-out")
+    keySplines: q("ease-out")
   });
   return n.appendChild(o), n;
 }
-function C(n) {
+function q(n) {
   return {
     ease: ".25 .1 .25 1",
     linear: "0 0 1 1",
@@ -238,7 +238,7 @@ p.attr = (n, t, e) => {
   }
   n.setAttribute(t, e);
 };
-class q {
+class C {
   constructor(t, e, i) {
     this.gantt = t, this.from_task = e, this.to_task = i, this.calculate_path(), this.draw();
   }
@@ -701,7 +701,7 @@ class I {
     this.parent.classList.add("hide");
   }
 }
-function A(n) {
+function H(n) {
   const t = n.getFullYear();
   return t - t % 10 + "";
 }
@@ -774,7 +774,7 @@ const b = [
     step: "1y",
     column_width: 120,
     date_format: "YYYY",
-    upper_text: (n, t, e) => !t || A(n) !== A(t) ? A(n) : "",
+    upper_text: (n, t, e) => !t || H(n) !== H(t) ? H(n) : "",
     lower_text: "YYYY",
     snap_at: "30d"
   }
@@ -935,7 +935,7 @@ class B {
         let o = [];
         e.dependencies && (o = e.dependencies.split(",").map((h) => h.trim().replaceAll(" ", "_")).filter((h) => h)), e.dependencies = o;
       }
-      return e.id ? typeof e.id == "string" ? e.id = e.id.replaceAll(" ", "_") : e.id = `${e.id}` : e.id = j(e), e;
+      return e.id ? typeof e.id == "string" ? e.id = e.id.replaceAll(" ", "_") : e.id = `${e.id}` : e.id = N(e), e;
     }).filter((e) => e), this.setup_dependencies();
   }
   setup_dependencies() {
@@ -1021,7 +1021,17 @@ class B {
   }
   _vl() {
     const t = this.options._kl;
-    t !== null && t !== 21 && (this.$svg.innerHTML = "", this.$container.innerHTML = '<div style="padding:40px;text-align:center;color:#dc2626;font-family:sans-serif;"><h2>⚠️ License Violation Detected</h2><p>This software has been tampered with or is being used without a valid license.</p><p style="margin-top:16px;font-size:14px;color:#666;">If you believe this is an error, please contact support with your purchase details.</p></div>');
+    if (t !== null && t !== 21 && (this.$svg.innerHTML = "", this.$container.innerHTML = '<div style="padding:40px;text-align:center;color:#dc2626;font-family:sans-serif;"><h2>⚠️ License Violation Detected</h2><p>This software has been tampered with or is being used without a valid license.</p><p style="margin-top:16px;font-size:14px;color:#666;">If you believe this is an error, please contact support with your purchase details.</p></div>'), t === null) {
+      const e = document.querySelector(".header-branding"), i = document.querySelector(".footer");
+      if (!e) {
+        const s = document.querySelector(".header-content");
+        if (s) {
+          const r = document.createElement("div");
+          r.className = "header-branding", r.innerHTML = '<a href="https://pythonandvba.com/simplegantt" target="_blank">Made with SimpleGantt</a>', s.appendChild(r);
+        }
+      }
+      i && i.innerHTML.includes("&nbsp;") && (i.innerHTML = '<a href="https://pythonandvba.com/simplegantt" target="_blank">Made with SimpleGantt</a>');
+    }
   }
   setup_layers() {
     this.layers = {};
@@ -1339,7 +1349,7 @@ class B {
       e = t.dependencies.map((i) => {
         const s = this.get_task(i);
         if (!s) return;
-        const r = new q(
+        const r = new C(
           this,
           this.bars[s._index],
           // from_task
@@ -1547,15 +1557,15 @@ class B {
       ), m = this.upperTexts.find(
         (w) => w.textContent === y
       ), m !== this.$current && (this.$current && this.$current.classList.remove("current-upper"), m.classList.add("current-upper"), this.$current = m), i = _.currentTarget.scrollLeft;
-      let [H, S, X] = this.get_start_end_positions();
+      let [A, E, X] = this.get_start_end_positions();
       i > X + 100 ? (this.$adjust.innerHTML = "&larr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
         this.$container.scrollTo({
-          left: S,
+          left: E,
           behavior: "smooth"
         });
-      }) : i + _.currentTarget.offsetWidth < H - 100 ? (this.$adjust.innerHTML = "&rarr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
+      }) : i + _.currentTarget.offsetWidth < A - 100 ? (this.$adjust.innerHTML = "&rarr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
         this.$container.scrollTo({
-          left: H,
+          left: A,
           behavior: "smooth"
         });
       }) : this.$adjust.classList.add("hide"), u && (g = c.map((w) => this.get_bar(w)), this.options.auto_move_label && g.forEach((w) => {
@@ -1707,7 +1717,7 @@ B.VIEW_MODE = {
   MONTH: b[5],
   YEAR: b[6]
 };
-function j(n) {
+function N(n) {
   return n.name + "_" + Math.random().toString(36).slice(2, 12);
 }
 function $(n) {

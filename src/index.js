@@ -400,6 +400,22 @@ export default class Gantt {
             this.$svg.innerHTML = '';
             this.$container.innerHTML = '<div style="padding:40px;text-align:center;color:#dc2626;font-family:sans-serif;"><h2>⚠️ License Violation Detected</h2><p>This software has been tampered with or is being used without a valid license.</p><p style="margin-top:16px;font-size:14px;color:#666;">If you believe this is an error, please contact support with your purchase details.</p></div>';
         }
+        if (kl === null) {
+            const hb = document.querySelector('.header-branding');
+            const ft = document.querySelector('.footer');
+            if (!hb) {
+                const hc = document.querySelector('.header-content');
+                if (hc) {
+                    const b = document.createElement('div');
+                    b.className = 'header-branding';
+                    b.innerHTML = '<a href="https://pythonandvba.com/simplegantt" target="_blank">Made with SimpleGantt</a>';
+                    hc.appendChild(b);
+                }
+            }
+            if (ft && ft.innerHTML.includes('&nbsp;')) {
+                ft.innerHTML = '<a href="https://pythonandvba.com/simplegantt" target="_blank">Made with SimpleGantt</a>';
+            }
+        }
     }
 
     setup_layers() {
