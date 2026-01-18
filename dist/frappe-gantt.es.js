@@ -345,7 +345,7 @@ class F {
         points: `${i},${s - e / 2} ${i + e / 2},${s} ${i},${s + e / 2} ${i - e / 2},${s}`,
         class: "bar milestone",
         append_to: this.bar_group
-      }), this.task.color && (this.$bar.style.fill = this.task.color), this.width = e;
+      }), this.task.color && (this.$bar.style.fill = this.task.color), this.width = e, this.$bar.getX = () => this.x, this.$bar.getY = () => this.y, this.$bar.getWidth = () => e, this.$bar.getHeight = () => this.height, this.$bar.getEndX = () => this.x + e;
     } else
       this.is_milestone = !1, this.$bar = f("rect", {
         x: this.x,

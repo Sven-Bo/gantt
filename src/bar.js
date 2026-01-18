@@ -122,6 +122,12 @@ export default class Bar {
                 this.$bar.style.fill = this.task.color;
             }
             this.width = size;
+            // Add helper methods for arrow positioning
+            this.$bar.getX = () => this.x;
+            this.$bar.getY = () => this.y;
+            this.$bar.getWidth = () => size;
+            this.$bar.getHeight = () => this.height;
+            this.$bar.getEndX = () => this.x + size;
         } else {
             this.is_milestone = false;
             this.$bar = createSVG('rect', {
