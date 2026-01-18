@@ -731,8 +731,8 @@ export default class Gantt {
             append_to: this.$header,
         });
 
-        // Add today label if enabled
-        if (this.options.today_label) {
+        // Add today label if enabled (only create once)
+        if (this.options.today_label && !this.$today_label) {
             const today = new Date();
             const labelText =
                 typeof this.options.today_label === 'function'
@@ -746,6 +746,9 @@ export default class Gantt {
                 append_to: this.$container,
             });
             this.$today_label.textContent = labelText;
+        } else if (this.$today_label) {
+            // Update position on re-render
+            this.$today_label.style.left = (left + 6) + 'px';
         }
     }
 
