@@ -822,6 +822,7 @@ const b = [
   scroll_to: "today",
   show_expected_progress: !1,
   today_button: !0,
+  today_label: !1,
   view_mode: "Day",
   view_mode_select: !1,
   view_modes: b,
@@ -1199,7 +1200,7 @@ class B {
       this.gantt_start,
       this.config.unit
     ) / this.config.step * this.config.column_width;
-    this.$current_highlight = this.create_el({
+    if (this.$current_highlight = this.create_el({
       top: this.config.header_height,
       left: r,
       height: this.grid_height - this.config.header_height,
@@ -1212,7 +1213,15 @@ class B {
       height: 6,
       classes: "current-ball-highlight",
       append_to: this.$header
-    });
+    }), this.options.today_label) {
+      const a = /* @__PURE__ */ new Date(), o = typeof this.options.today_label == "function" ? this.options.today_label(a, this.options.language) : a.toLocaleDateString();
+      this.$today_label = this.create_el({
+        top: this.config.header_height + 4,
+        left: r + 6,
+        classes: "today-label",
+        append_to: this.$container
+      }), this.$today_label.textContent = o;
+    }
   }
   make_grid_highlights() {
     this.highlight_holidays(), this.config.ignored_positions = [];

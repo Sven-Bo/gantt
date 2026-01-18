@@ -730,6 +730,23 @@ export default class Gantt {
             classes: 'current-ball-highlight',
             append_to: this.$header,
         });
+
+        // Add today label if enabled
+        if (this.options.today_label) {
+            const today = new Date();
+            const labelText =
+                typeof this.options.today_label === 'function'
+                    ? this.options.today_label(today, this.options.language)
+                    : today.toLocaleDateString();
+
+            this.$today_label = this.create_el({
+                top: this.config.header_height + 4,
+                left: left + 6,
+                classes: 'today-label',
+                append_to: this.$container,
+            });
+            this.$today_label.textContent = labelText;
+        }
     }
 
     make_grid_highlights() {

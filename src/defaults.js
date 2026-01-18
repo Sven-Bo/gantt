@@ -164,6 +164,7 @@ const DEFAULT_OPTIONS = {
     scroll_to: 'today',
     show_expected_progress: false,
     today_button: true,
+    today_label: false,
     view_mode: 'Day',
     view_mode_select: false,
     view_modes: DEFAULT_VIEW_MODES,
