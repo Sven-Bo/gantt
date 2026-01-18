@@ -5,7 +5,7 @@ import Arrow from './arrow';
 import Bar from './bar';
 import Popup from './popup';
 
-import { DEFAULT_OPTIONS, DEFAULT_VIEW_MODES } from './defaults';
+import { DEFAULT_OPTIONS, DEFAULT_VIEW_MODES, _v } from './defaults';
 
 import './styles/gantt.css';
 
@@ -391,6 +391,17 @@ export default class Gantt {
         this.map_arrows_on_bars();
         this.set_dimensions();
         this.set_scroll_position(this.options.scroll_to);
+        this._cl();
+    }
+
+    _cl() {
+        if (_v(this.options._lk)) return;
+        if (this.$_wm) return;
+        this.$_wm = this.create_el({
+            classes: '_wm',
+            append_to: this.$container,
+        });
+        this.$_wm.innerHTML = 'Unlicensed';
     }
 
     setup_layers() {

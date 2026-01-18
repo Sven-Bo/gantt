@@ -169,6 +169,16 @@ const DEFAULT_OPTIONS = {
     view_mode_select: false,
     view_modes: DEFAULT_VIEW_MODES,
     is_weekend: (d) => d.getDay() === 0 || d.getDay() === 6,
+    _lk: null,
 };
 
-export { DEFAULT_OPTIONS, DEFAULT_VIEW_MODES };
+// Simple obfuscated validation
+const _v = (k) => {
+    if (!k || typeof k !== 'string' || k.length < 8) return false;
+    const p = k.split('-');
+    if (p.length !== 3) return false;
+    const s = p.reduce((a, b) => a + b.length, 0);
+    return s >= 12 && p[0].length >= 3 && p[2].length >= 3;
+};
+
+export { DEFAULT_OPTIONS, DEFAULT_VIEW_MODES, _v };

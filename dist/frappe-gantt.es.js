@@ -826,9 +826,14 @@ const b = [
   view_mode: "Day",
   view_mode_select: !1,
   view_modes: b,
-  is_weekend: (n) => n.getDay() === 0 || n.getDay() === 6
+  is_weekend: (n) => n.getDay() === 0 || n.getDay() === 6,
+  _lk: null
+}, B = (n) => {
+  if (!n || typeof n != "string" || n.length < 8) return !1;
+  const t = n.split("-");
+  return t.length !== 3 ? !1 : t.reduce((i, s) => i + s.length, 0) >= 12 && t[0].length >= 3 && t[2].length >= 3;
 };
-class B {
+class j {
   constructor(t, e, i) {
     this.setup_wrapper(t), this.setup_options(i), this.setup_tasks(e), this.change_view_mode(), this.bind_events();
   }
@@ -934,7 +939,7 @@ class B {
         let o = [];
         e.dependencies && (o = e.dependencies.split(",").map((h) => h.trim().replaceAll(" ", "_")).filter((h) => h)), e.dependencies = o;
       }
-      return e.id ? typeof e.id == "string" ? e.id = e.id.replaceAll(" ", "_") : e.id = `${e.id}` : e.id = j(e), e;
+      return e.id ? typeof e.id == "string" ? e.id = e.id.replaceAll(" ", "_") : e.id = `${e.id}` : e.id = N(e), e;
     }).filter((e) => e), this.setup_dependencies();
   }
   setup_dependencies() {
@@ -1016,7 +1021,13 @@ class B {
     this.bind_grid_click(), this.bind_holiday_labels(), this.bind_bar_events();
   }
   render() {
-    this.clear(), this.setup_layers(), this.make_grid(), this.make_dates(), this.make_grid_extras(), this.make_bars(), this.make_arrows(), this.map_arrows_on_bars(), this.set_dimensions(), this.set_scroll_position(this.options.scroll_to);
+    this.clear(), this.setup_layers(), this.make_grid(), this.make_dates(), this.make_grid_extras(), this.make_bars(), this.make_arrows(), this.map_arrows_on_bars(), this.set_dimensions(), this.set_scroll_position(this.options.scroll_to), this._cl();
+  }
+  _cl() {
+    B(this.options._lk) || this.$_wm || (this.$_wm = this.create_el({
+      classes: "_wm",
+      append_to: this.$container
+    }), this.$_wm.innerHTML = "Unlicensed");
   }
   setup_layers() {
     this.layers = {};
@@ -1693,7 +1704,7 @@ class B {
     this.$svg.innerHTML = "", (e = (t = this.$header) == null ? void 0 : t.remove) == null || e.call(t), (s = (i = this.$side_header) == null ? void 0 : i.remove) == null || s.call(i), (a = (r = this.$current_highlight) == null ? void 0 : r.remove) == null || a.call(r), (h = (o = this.$extras) == null ? void 0 : o.remove) == null || h.call(o), (_ = (l = this.popup) == null ? void 0 : l.hide) == null || _.call(l);
   }
 }
-B.VIEW_MODE = {
+j.VIEW_MODE = {
   HOUR: b[0],
   QUARTER_DAY: b[1],
   HALF_DAY: b[2],
@@ -1702,12 +1713,12 @@ B.VIEW_MODE = {
   MONTH: b[5],
   YEAR: b[6]
 };
-function j(n) {
+function N(n) {
   return n.name + "_" + Math.random().toString(36).slice(2, 12);
 }
 function x(n) {
   return n.replaceAll(" ", "_").replaceAll(":", "_").replaceAll(".", "_");
 }
 export {
-  B as default
+  j as default
 };
