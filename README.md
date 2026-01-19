@@ -1,31 +1,54 @@
 <div align="center" markdown="1">
-    <img src=".github/gantt-logo.jpg" width="80">
-    <h1>Frappe Gantt</h1>
+    <h1>SimpleGantt</h1>
 
-**A modern, configurable, Gantt library for the web.**
+**Create Excel Gantt Charts in Seconds**
+
+[Get SimpleGantt](https://pythonandvba.com/simplegantt/) | [Documentation](https://pythonandvba.com/simplegantt/) | [Support](https://pythonandvba.com/simplegantt-support/)
 
 </div>
 
-![Hero Image](.github/hero-image.png)
+## Turn Excel Tables into Interactive Gantt Charts
 
-## Frappe Gantt
+**SimpleGantt** is an Excel add-in that converts your task lists into professional, interactive Gantt charts with just one click. No formulas. No manual formatting. Just results.
 
-Gantt charts are bar charts that visually illustrate a project's tasks, schedule, and dependencies. With Frappe Gantt, you can build beautiful, customizable, Gantt charts with ease.
+### Why SimpleGantt?
 
-You can use it anywhere from hobby projects to tracking the goals of your team at the worksplace.
+- **One-Click Export**: Select your table, click export, done
+- **Interactive Charts**: Zoom, scroll, and hover for details in any browser
+- **Dependencies & Progress**: Visualize task relationships and completion status
+- **Milestone Markers**: Highlight key dates and deadlines
+- **Hour-Level Scheduling**: Perfect for workshops, conferences, and meeting agendas
+- **Custom Branding**: Add your logo, colors, and titles (PRO)
+- **100% Private**: Everything runs locally. Your data never leaves your computer
 
-[ERPNext](https://erpnext.com/) uses Frappe Gantt.
+### Get Started
 
-### Motivation
+Download SimpleGantt for Excel:
 
-We needed a Gantt View for ERPNext. Surprisingly, we couldn't find a visually appealing Gantt library that was open source - so we decided to build it. Initially, the design was heavily inspired by Google Gantt and DHTMLX.
+**[https://pythonandvba.com/simplegantt/](https://pythonandvba.com/simplegantt/)**
 
-### Key Features
+Works with Excel 2007, 2010, 2013, 2016, 2019, 2021, and Microsoft 365 (Windows & Mac).
 
--   **Customizable Views**: customize the timeline based on various time periods - day, hour, or year, you have it. You can also create your own views.
--   **Ignore Periods**: exclude weekends and other holidays from your tasks' progress calculation.
--   **Configure Anything**: spacing, edit access, labels, you can control it all. Change both the style and functionality to meet your needs.
--   **Multi-lingual Support**: suitable for companies with an international base.
+---
+
+## About This Repository
+
+This repository contains a customized fork of [Frappe Gantt](https://github.com/frappe/gantt) - the JavaScript library that powers SimpleGantt's interactive charts.
+
+### Enhancements in This Fork
+
+- **Hour View Mode**: Schedule tasks down to the hour
+- **Milestone Markers**: Diamond-shaped markers for key dates
+- **Today Label**: Optional date display on the today marker
+- **Minimum Bar Width**: Same-day tasks remain visible
+- **Bug Fixes**: Month view rendering and arrow positioning fixes
+
+### Key Features (Frappe Gantt)
+
+- **Customizable Views**: Day, Week, Month, Year, or Hour timelines
+- **Ignore Periods**: Exclude weekends and holidays from calculations
+- **Configure Anything**: Spacing, labels, colors, and more
+- **Multi-lingual Support**: 20+ languages included
 
 ## Usage
 
@@ -167,13 +190,20 @@ If you want to contribute enhancements or fixes:
 5. Open `index.html` in your browser.
 6. Make your code changes and test them.
 
-<br />
-<br />
+---
+
+## Credits
+
+This project is built on [Frappe Gantt](https://github.com/frappe/gantt), an open-source Gantt chart library by [Frappe Technologies](https://frappe.io).
+
+## License
+
+MIT License - see [LICENSE](LICENSE) for details.
+
+---
+
 <div align="center" style="padding-top: 0.75rem;">
-	<a href="https://frappe.io" target="_blank">
-		<picture>
-			<source media="(prefers-color-scheme: dark)" srcset="https://frappe.io/files/Frappe-white.png">
-			<img src="https://frappe.io/files/Frappe-black.png" alt="Frappe Technologies" height="28"/>
-		</picture>
-	</a>
+
+**[SimpleGantt](https://pythonandvba.com/simplegantt/)** by [Sven Bosau](https://pythonandvba.com) | Powered by [Frappe Gantt](https://github.com/frappe/gantt)
+
 </div>
