@@ -37,7 +37,7 @@ This project is built on [Frappe Gantt](https://github.com/frappe/gantt), an ope
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details.
+MIT License - see [LICENSE](https://github.com/Sven-Bo/gantt/blob/master/license.txt) for details.
 
 ---
 
