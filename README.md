@@ -2,6 +2,9 @@
     <h1>SimpleGantt</h1>
 
 **Create Excel Gantt Charts in Seconds**
+<p align="center">
+  <img src="SimpleGantt_Demo.gif" alt="SimpleGantt demo" width="900">
+</p>
 
 [Get SimpleGantt](https://pythonandvba.com/simplegantt/) | [Documentation](https://pythonandvba.com/go/simplegantt-documentation/) | [Support](https://pythonandvba.com/go/simplegantt-support/)
 
