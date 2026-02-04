@@ -1,5 +1,6 @@
 import date_utils from './date_utils';
 import { $, createSVG } from './svg_utils';
+import { t } from './translations';
 
 import Arrow from './arrow';
 import Bar from './bar';
@@ -535,7 +536,7 @@ export default class Gantt {
             const $el = document.createElement('option');
             $el.selected = true;
             $el.disabled = true;
-            $el.textContent = 'Mode';
+            $el.textContent = t('mode', this.options.language);
             $select.appendChild($el);
 
             for (const mode of this.options.view_modes) {
@@ -560,7 +561,7 @@ export default class Gantt {
         if (this.options.today_button) {
             let $today_button = document.createElement('button');
             $today_button.classList.add('today-button');
-            $today_button.textContent = 'Today';
+            $today_button.textContent = t('today', this.options.language);
             $today_button.onclick = this.scroll_current.bind(this);
             this.$side_header.prepend($today_button);
             this.$today_button = $today_button;

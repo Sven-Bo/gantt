@@ -1,4 +1,5 @@
 import date_utils from './date_utils';
+import { t } from './translations';
 
 function getDecade(d) {
     const year = d.getFullYear();
@@ -146,7 +147,8 @@ const DEFAULT_OPTIONS = {
             ctx.chart.options.language,
         );
 
-        const duration_unit = is_hour_level ? 'hours' : 'days';
+        const lang = ctx.chart.options.language;
+        const duration_unit = is_hour_level ? t('hours', lang) : t('days', lang);
         const duration_value = is_hour_level
             ? Math.round(
                 date_utils.diff(ctx.task._end, ctx.task._start, 'hour') * 100,
@@ -154,7 +156,7 @@ const DEFAULT_OPTIONS = {
             : ctx.task.actual_duration;
 
         ctx.set_details(
-            `${start_date} - ${end_date} (${duration_value} ${duration_unit}${ctx.task.ignored_duration ? ' + ' + ctx.task.ignored_duration + ' excluded' : ''})<br/>Progress: ${Math.floor(ctx.task.progress * 100) / 100}%`,
+            `${start_date} - ${end_date} (${duration_value} ${duration_unit}${ctx.task.ignored_duration ? ' + ' + ctx.task.ignored_duration + ' ' + t('excluded', lang) : ''})<br/>${t('progress', lang)}: ${Math.floor(ctx.task.progress * 100) / 100}%`,
         );
     },
     popup_on: 'click',
