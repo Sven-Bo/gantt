@@ -401,18 +401,16 @@ export default class Bar {
                         task: this.task,
                         target: this.$bar,
                     });
-                this.gantt.$container
-                    .querySelector(`.highlight-${task_id}`)
-                    .classList.remove('hide');
+                const highlight = this.gantt.$container.querySelector(`.highlight-${task_id}`);
+                if (highlight) highlight.classList.remove('hide');
             }, 200);
         });
         $.on(this.group, 'mouseleave', () => {
             clearTimeout(timeout);
             if (this.gantt.options.popup_on === 'hover')
                 this.gantt.popup?.hide?.();
-            this.gantt.$container
-                .querySelector(`.highlight-${task_id}`)
-                .classList.add('hide');
+            const highlight = this.gantt.$container.querySelector(`.highlight-${task_id}`);
+            if (highlight) highlight.classList.add('hide');
         });
 
         $.on(this.group, 'click', () => {

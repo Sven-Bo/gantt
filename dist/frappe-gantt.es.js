@@ -649,11 +649,15 @@ class O {
           y: s.offsetY || s.layerY,
           task: this.task,
           target: this.$bar
-        }), this.gantt.$container.querySelector(`.highlight-${t}`).classList.remove("hide");
+        });
+        const n = this.gantt.$container.querySelector(`.highlight-${t}`);
+        n && n.classList.remove("hide");
       }, 200);
     }), p.on(this.group, "mouseleave", () => {
-      var s, n;
-      clearTimeout(e), this.gantt.options.popup_on === "hover" && ((n = (s = this.gantt.popup) == null ? void 0 : s.hide) == null || n.call(s)), this.gantt.$container.querySelector(`.highlight-${t}`).classList.add("hide");
+      var n, a;
+      clearTimeout(e), this.gantt.options.popup_on === "hover" && ((a = (n = this.gantt.popup) == null ? void 0 : n.hide) == null || a.call(n));
+      const s = this.gantt.$container.querySelector(`.highlight-${t}`);
+      s && s.classList.add("hide");
     }), p.on(this.group, "click", () => {
       this.gantt.trigger_event("click", [this.task]);
     }), p.on(this.group, "dblclick", (s) => {
