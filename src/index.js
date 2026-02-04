@@ -11,6 +11,9 @@ import { DEFAULT_OPTIONS, DEFAULT_VIEW_MODES } from './defaults';
 import './styles/gantt.css';
 
 export default class Gantt {
+    // Expose translation function as static method for custom popups
+    static t = t;
+
     constructor(wrapper, tasks, options) {
         this.setup_wrapper(wrapper);
         this.setup_options(options);

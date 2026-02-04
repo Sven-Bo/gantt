@@ -1,4 +1,7 @@
-const M = "year", D = "month", L = "day", T = "hour", Y = "minute", H = "second", X = "millisecond", d = {
+var F = Object.defineProperty;
+var O = (r, t, e) => t in r ? F(r, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : r[t] = e;
+var X = (r, t, e) => O(r, typeof t != "symbol" ? t + "" : t, e);
+const M = "year", D = "month", T = "day", L = "hour", Y = "minute", H = "second", W = "millisecond", d = {
   parse_duration(r) {
     const e = /([0-9]+)(y|m|d|h|min|s|ms)/gm.exec(r);
     if (e !== null) {
@@ -88,11 +91,11 @@ const M = "year", D = "month", L = "day", T = "hour", Y = "minute", H = "second"
     const i = [
       r.getFullYear() + (e === M ? t : 0),
       r.getMonth() + (e === D ? t : 0),
-      r.getDate() + (e === L ? t : 0),
-      r.getHours() + (e === T ? t : 0),
+      r.getDate() + (e === T ? t : 0),
+      r.getHours() + (e === L ? t : 0),
       r.getMinutes() + (e === Y ? t : 0),
       r.getSeconds() + (e === H ? t : 0),
-      r.getMilliseconds() + (e === X ? t : 0)
+      r.getMilliseconds() + (e === W ? t : 0)
     ];
     return new Date(...i);
   },
@@ -100,11 +103,11 @@ const M = "year", D = "month", L = "day", T = "hour", Y = "minute", H = "second"
     const e = {
       [M]: 6,
       [D]: 5,
-      [L]: 4,
-      [T]: 3,
+      [T]: 4,
+      [L]: 3,
       [Y]: 2,
       [H]: 1,
-      [X]: 0
+      [W]: 0
     };
     function i(n) {
       const a = e[t];
@@ -114,8 +117,8 @@ const M = "year", D = "month", L = "day", T = "hour", Y = "minute", H = "second"
       r.getFullYear(),
       i(M) ? 0 : r.getMonth(),
       i(D) ? 1 : r.getDate(),
-      i(L) ? 0 : r.getHours(),
-      i(T) ? 0 : r.getMinutes(),
+      i(T) ? 0 : r.getHours(),
+      i(L) ? 0 : r.getMinutes(),
       i(Y) ? 0 : r.getSeconds(),
       i(H) ? 0 : r.getMilliseconds()
     ];
@@ -171,13 +174,13 @@ function f(r, t) {
   return e;
 }
 function A(r, t, e, i) {
-  const s = q(r, t, e, i);
+  const s = I(r, t, e, i);
   if (s === r) {
     const n = document.createEvent("HTMLEvents");
     n.initEvent("click", !0, !0), n.eventName = "click", s.dispatchEvent(n);
   }
 }
-function q(r, t, e, i, s = "0.4s", n = "0.1s") {
+function I(r, t, e, i, s = "0.4s", n = "0.1s") {
   const a = r.querySelector("animate");
   if (a)
     return p.attr(a, {
@@ -197,11 +200,11 @@ function q(r, t, e, i, s = "0.4s", n = "0.1s") {
     calcMode: "spline",
     values: e + ";" + i,
     keyTimes: "0; 1",
-    keySplines: z("ease-out")
+    keySplines: j("ease-out")
   });
   return r.appendChild(o), r;
 }
-function z(r) {
+function j(r) {
   return {
     ease: ".25 .1 .25 1",
     linear: "0 0 1 1",
@@ -242,121 +245,205 @@ const v = {
   en: {
     today: "Today",
     mode: "Mode",
+    view_mode: "View Mode",
     progress: "Progress",
     days: "days",
     hours: "hours",
-    excluded: "excluded"
+    excluded: "excluded",
+    hour: "Hour",
+    day: "Day",
+    week: "Week",
+    month: "Month",
+    year: "Year"
   },
   de: {
     today: "Heute",
     mode: "Ansicht",
+    view_mode: "Ansicht",
     progress: "Fortschritt",
     days: "Tage",
     hours: "Stunden",
-    excluded: "ausgeschlossen"
+    excluded: "ausgeschlossen",
+    hour: "Stunde",
+    day: "Tag",
+    week: "Woche",
+    month: "Monat",
+    year: "Jahr"
   },
   fr: {
     today: "Aujourd'hui",
     mode: "Mode",
+    view_mode: "Mode d'affichage",
     progress: "Progression",
     days: "jours",
     hours: "heures",
-    excluded: "exclu"
+    excluded: "exclu",
+    hour: "Heure",
+    day: "Jour",
+    week: "Semaine",
+    month: "Mois",
+    year: "Année"
   },
   es: {
     today: "Hoy",
     mode: "Modo",
+    view_mode: "Modo de vista",
     progress: "Progreso",
     days: "días",
     hours: "horas",
-    excluded: "excluido"
+    excluded: "excluido",
+    hour: "Hora",
+    day: "Día",
+    week: "Semana",
+    month: "Mes",
+    year: "Año"
   },
   it: {
     today: "Oggi",
     mode: "Modalità",
+    view_mode: "Modalità di visualizzazione",
     progress: "Progresso",
     days: "giorni",
     hours: "ore",
-    excluded: "escluso"
+    excluded: "escluso",
+    hour: "Ora",
+    day: "Giorno",
+    week: "Settimana",
+    month: "Mese",
+    year: "Anno"
   },
   pt_br: {
     today: "Hoje",
     mode: "Modo",
+    view_mode: "Modo de exibição",
     progress: "Progresso",
     days: "dias",
     hours: "horas",
-    excluded: "excluído"
+    excluded: "excluído",
+    hour: "Hora",
+    day: "Dia",
+    week: "Semana",
+    month: "Mês",
+    year: "Ano"
   },
   nl: {
     today: "Vandaag",
     mode: "Modus",
+    view_mode: "Weergavemodus",
     progress: "Voortgang",
     days: "dagen",
     hours: "uren",
-    excluded: "uitgesloten"
+    excluded: "uitgesloten",
+    hour: "Uur",
+    day: "Dag",
+    week: "Week",
+    month: "Maand",
+    year: "Jaar"
   },
   ru: {
     today: "Сегодня",
     mode: "Режим",
+    view_mode: "Режим просмотра",
     progress: "Прогресс",
     days: "дней",
     hours: "часов",
-    excluded: "исключено"
+    excluded: "исключено",
+    hour: "Час",
+    day: "День",
+    week: "Неделя",
+    month: "Месяц",
+    year: "Год"
   },
   pl: {
     today: "Dziś",
     mode: "Tryb",
+    view_mode: "Tryb widoku",
     progress: "Postęp",
     days: "dni",
     hours: "godzin",
-    excluded: "wykluczone"
+    excluded: "wykluczone",
+    hour: "Godzina",
+    day: "Dzień",
+    week: "Tydzień",
+    month: "Miesiąc",
+    year: "Rok"
   },
   tr: {
     today: "Bugün",
     mode: "Mod",
+    view_mode: "Görünüm modu",
     progress: "İlerleme",
     days: "gün",
     hours: "saat",
-    excluded: "hariç"
+    excluded: "hariç",
+    hour: "Saat",
+    day: "Gün",
+    week: "Hafta",
+    month: "Ay",
+    year: "Yıl"
   },
   zh: {
     today: "今天",
     mode: "模式",
+    view_mode: "视图模式",
     progress: "进度",
     days: "天",
     hours: "小时",
-    excluded: "已排除"
+    excluded: "已排除",
+    hour: "小时",
+    day: "日",
+    week: "周",
+    month: "月",
+    year: "年"
   },
   ko: {
     today: "오늘",
     mode: "모드",
+    view_mode: "보기 모드",
     progress: "진행률",
     days: "일",
     hours: "시간",
-    excluded: "제외됨"
+    excluded: "제외됨",
+    hour: "시간",
+    day: "일",
+    week: "주",
+    month: "월",
+    year: "년"
   },
   hi: {
     today: "आज",
     mode: "मोड",
+    view_mode: "दृश्य मोड",
     progress: "प्रगति",
     days: "दिन",
     hours: "घंटे",
-    excluded: "बहिष्कृत"
+    excluded: "बहिष्कृत",
+    hour: "घंटा",
+    day: "दिन",
+    week: "सप्ताह",
+    month: "महीना",
+    year: "वर्ष"
   },
   fa: {
     today: "امروز",
     mode: "حالت",
+    view_mode: "حالت نمایش",
     progress: "پیشرفت",
     days: "روز",
     hours: "ساعت",
-    excluded: "مستثنی"
+    excluded: "مستثنی",
+    hour: "ساعت",
+    day: "روز",
+    week: "هفته",
+    month: "ماه",
+    year: "سال"
   }
 };
 function x(r, t = "en") {
   const e = t.toLowerCase().replace("-", "_");
   return (v[e] || v[e.split("_")[0]] || v.en)[r] || v.en[r] || r;
 }
-class F {
+class B {
   constructor(t, e, i) {
     this.gantt = t, this.from_task = e, this.to_task = i, this.calculate_path(), this.draw();
   }
@@ -411,7 +498,7 @@ class F {
     this.calculate_path(), this.element.setAttribute("d", this.path);
   }
 }
-class O {
+class N {
   constructor(t, e) {
     this.set_defaults(t, e), this.prepare_wrappers(), this.prepare_helpers(), this.refresh();
   }
@@ -804,7 +891,7 @@ class O {
       t.update();
   }
 }
-class I {
+class V {
   constructor(t, e, i) {
     this.parent = t, this.popup_func = e, this.gantt = i, this.make();
   }
@@ -846,11 +933,11 @@ function S(r) {
   const t = r.getFullYear();
   return t - t % 10 + "";
 }
-function j(r, t, e) {
+function G(r, t, e) {
   let i = d.add(r, 6, "day"), s = i.getMonth() !== r.getMonth() ? "D MMM" : "D", n = !t || r.getMonth() !== t.getMonth() ? "D MMM" : "D";
   return `${d.format(r, n, e)} - ${d.format(i, s, e)}`;
 }
-const b = [
+const y = [
   {
     name: "Hour",
     padding: "7d",
@@ -893,7 +980,7 @@ const b = [
     step: "7d",
     date_format: "YYYY-MM-DD",
     column_width: 140,
-    lower_text: j,
+    lower_text: G,
     upper_text: (r, t, e) => !t || r.getMonth() !== t.getMonth() ? d.format(r, "MMMM", e) : "",
     thick_line: (r) => r.getDate() >= 1 && r.getDate() <= 7,
     upper_text_frequency: 4
@@ -919,7 +1006,7 @@ const b = [
     lower_text: "YYYY",
     snap_at: "30d"
   }
-], B = {
+], P = {
   arrow_curve: 5,
   auto_move_label: !1,
   bar_corner_radius: 3,
@@ -966,12 +1053,12 @@ const b = [
   today_label: !1,
   view_mode: "Day",
   view_mode_select: !1,
-  view_modes: b,
+  view_modes: y,
   is_weekend: (r) => r.getDay() === 0 || r.getDay() === 6,
   _kl: null,
   milestone_keyword: "Milestone:"
 };
-class N {
+class z {
   constructor(t, e, i) {
     this.setup_wrapper(t), this.setup_options(i), this.setup_tasks(e), this.change_view_mode(), this.bind_events();
   }
@@ -1007,7 +1094,7 @@ class N {
   setup_options(t) {
     this.original_options = t, t != null && t.view_modes && (t.view_modes = t.view_modes.map((i) => {
       if (typeof i == "string") {
-        const s = b.find(
+        const s = y.find(
           (n) => n.name === i
         );
         return s || console.error(
@@ -1015,7 +1102,7 @@ class N {
         ), s;
       }
       return i;
-    }), t.view_mode = t.view_modes[0]), this.options = { ...B, ...t };
+    }), t.view_mode = t.view_modes[0]), this.options = { ...P, ...t };
     const e = {
       "grid-height": "container_height",
       "bar-height": "bar_height",
@@ -1077,7 +1164,7 @@ class N {
         let o = [];
         e.dependencies && (o = e.dependencies.split(",").map((h) => h.trim().replaceAll(" ", "_")).filter((h) => h)), e.dependencies = o;
       }
-      return e.id ? typeof e.id == "string" ? e.id = e.id.replaceAll(" ", "_") : e.id = `${e.id}` : e.id = V(e), e;
+      return e.id ? typeof e.id == "string" ? e.id = e.id.replaceAll(" ", "_") : e.id = `${e.id}` : e.id = R(e), e;
     }).filter((e) => e), this.setup_dependencies();
   }
   setup_dependencies() {
@@ -1480,7 +1567,7 @@ class N {
   }
   make_bars() {
     this.bars = this.tasks.map((t) => {
-      const e = new O(this, t);
+      const e = new N(this, t);
       return this.layers.bar.appendChild(e.group), e;
     });
   }
@@ -1491,7 +1578,7 @@ class N {
       e = t.dependencies.map((i) => {
         const s = this.get_task(i);
         if (!s) return;
-        const n = new F(
+        const n = new B(
           this,
           this.bars[s._index],
           // from_task
@@ -1644,8 +1731,8 @@ class N {
       this.options.move_dependencies ? u = [
         a,
         ...this.get_all_dependent_tasks(a)
-      ] : u = [a], o = u.map((y) => this.get_bar(y)), this.bar_being_dragged = !1, l = e, o.forEach((y) => {
-        const m = y.$bar;
+      ] : u = [a], o = u.map((b) => this.get_bar(b)), this.bar_being_dragged = !1, l = e, o.forEach((b) => {
+        const m = b.$bar;
         m.ox = m.getX(), m.oy = m.getY(), m.owidth = m.getWidth(), m.finaldx = 0;
       });
     }), this.options.infinite_padding) {
@@ -1681,28 +1768,28 @@ class N {
         g.currentTarget.scrollLeft / this.config.column_width * this.config.step,
         this.config.unit
       );
-      let y = this.config.view_mode.upper_text(
+      let b = this.config.view_mode.upper_text(
         this.current_date,
         null,
         this.options.language
       ), m = this.upperTexts.find(
-        (w) => w.textContent === y
+        (w) => w.textContent === b
       );
       this.current_date = d.add(
         this.gantt_start,
         (g.currentTarget.scrollLeft + m.clientWidth) / this.config.column_width * this.config.step,
         this.config.unit
-      ), y = this.config.view_mode.upper_text(
+      ), b = this.config.view_mode.upper_text(
         this.current_date,
         null,
         this.options.language
       ), m = this.upperTexts.find(
-        (w) => w.textContent === y
+        (w) => w.textContent === b
       ), m !== this.$current && (this.$current && this.$current.classList.remove("current-upper"), m.classList.add("current-upper"), this.$current = m), i = g.currentTarget.scrollLeft;
-      let [E, W, C] = this.get_start_end_positions();
-      i > C + 100 ? (this.$adjust.innerHTML = "&larr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
+      let [E, C, q] = this.get_start_end_positions();
+      i > q + 100 ? (this.$adjust.innerHTML = "&larr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
         this.$container.scrollTo({
-          left: W,
+          left: C,
           behavior: "smooth"
         });
       }) : i + g.currentTarget.offsetWidth < E - 100 ? (this.$adjust.innerHTML = "&rarr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
@@ -1817,7 +1904,7 @@ class N {
     return this.bars.find((e) => e.task.id === t);
   }
   show_popup(t) {
-    this.options.popup !== !1 && (this.popup || (this.popup = new I(
+    this.options.popup !== !1 && (this.popup || (this.popup = new V(
       this.$popup_wrapper,
       this.options.popup,
       this
@@ -1850,21 +1937,23 @@ class N {
     this.$svg.innerHTML = "", (e = (t = this.$header) == null ? void 0 : t.remove) == null || e.call(t), (s = (i = this.$side_header) == null ? void 0 : i.remove) == null || s.call(i), (a = (n = this.$current_highlight) == null ? void 0 : n.remove) == null || a.call(n), (h = (o = this.$extras) == null ? void 0 : o.remove) == null || h.call(o), (g = (l = this.popup) == null ? void 0 : l.hide) == null || g.call(l);
   }
 }
-N.VIEW_MODE = {
-  HOUR: b[0],
-  QUARTER_DAY: b[1],
-  HALF_DAY: b[2],
-  DAY: b[3],
-  WEEK: b[4],
-  MONTH: b[5],
-  YEAR: b[6]
+// Expose translation function as static method for custom popups
+X(z, "t", x);
+z.VIEW_MODE = {
+  HOUR: y[0],
+  QUARTER_DAY: y[1],
+  HALF_DAY: y[2],
+  DAY: y[3],
+  WEEK: y[4],
+  MONTH: y[5],
+  YEAR: y[6]
 };
-function V(r) {
+function R(r) {
   return r.name + "_" + Math.random().toString(36).slice(2, 12);
 }
 function k(r) {
   return r.replaceAll(" ", "_").replaceAll(":", "_").replaceAll(".", "_");
 }
 export {
-  N as default
+  z as default
 };
