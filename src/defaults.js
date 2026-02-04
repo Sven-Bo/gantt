@@ -155,8 +155,13 @@ const DEFAULT_OPTIONS = {
             ) / 100
             : ctx.task.actual_duration;
 
+        // Only show progress if it was explicitly set (not -1)
+        const progressText = ctx.task.progress >= 0 
+            ? `<br/>${t('progress', lang)}: ${Math.floor(ctx.task.progress * 100) / 100}%`
+            : '';
+        
         ctx.set_details(
-            `${start_date} - ${end_date} (${duration_value} ${duration_unit}${ctx.task.ignored_duration ? ' + ' + ctx.task.ignored_duration + ' ' + t('excluded', lang) : ''})<br/>${t('progress', lang)}: ${Math.floor(ctx.task.progress * 100) / 100}%`,
+            `${start_date} - ${end_date} (${duration_value} ${duration_unit}${ctx.task.ignored_duration ? ' + ' + ctx.task.ignored_duration + ' ' + t('excluded', lang) : ''})${progressText}`,
         );
     },
     popup_on: 'click',

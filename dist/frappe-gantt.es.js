@@ -951,9 +951,9 @@ const b = [
       r.chart.options.language
     ), n = r.chart.options.language, a = x(t ? "hours" : "days", n), o = t ? Math.round(
       d.diff(r.task._end, r.task._start, "hour") * 100
-    ) / 100 : r.task.actual_duration;
+    ) / 100 : r.task.actual_duration, h = r.task.progress >= 0 ? `<br/>${x("progress", n)}: ${Math.floor(r.task.progress * 100) / 100}%` : "";
     r.set_details(
-      `${i} - ${s} (${o} ${a}${r.task.ignored_duration ? " + " + r.task.ignored_duration + " " + x("excluded", n) : ""})<br/>${x("progress", n)}: ${Math.floor(r.task.progress * 100) / 100}%`
+      `${i} - ${s} (${o} ${a}${r.task.ignored_duration ? " + " + r.task.ignored_duration + " " + x("excluded", n) : ""})${h}`
     );
   },
   popup_on: "click",
